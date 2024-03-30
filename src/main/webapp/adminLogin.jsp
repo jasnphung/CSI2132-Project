@@ -47,7 +47,7 @@
 
 <body>
 <header>
-    <h1>e-Hotel Booking - Find your next stay today</h1>
+    <h1>Admin Login</h1>
 </header>
 <nav>
     <a href="index.jsp">Home</a>
@@ -55,29 +55,11 @@
     <a href="#">Contact</a>
 </nav>
 <main>
-    <div style="background-color: lightblue; padding: 10px">
-        <h2>Search for available hotels</h2>
-
-        <!-- TODO: Change so it selects from what locations are in the database -->
-        <label for="location">Location:</label>
-        <select id="location" name="location">
-            <option value="london">London</option>
-            <option value="paris">Paris</option>
-            <option value="newyork">New York</option>
-        </select>
-
-        <label for="checkInDate">Check-in date:</label>
-        <input type="date" id="checkInDate" name="checkInDate">
-
-        <label for="checkOutDate">Check-out date:</label>
-        <input type="date" id="checkOutDate" name="checkOutDate">
-
-        <label for="numberOfGuests">Number of guests:</label>
-        <input type="number" id="numberOfGuests" name="numberOfGuests" min="1" max="100">
-    </div>
+    <h2>Main Content Area</h2>
+    <p>This is a sample HTML page. You can replace this content with your own.</p>
 </main>
 <footer>
-    <a href="adminLogin.jsp" style="color: white;">Admin? Login here</a>
+    <p>&copy; 2024 My Website. All rights reserved.</p>
 </footer>
 </body>
 

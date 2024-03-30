@@ -50,8 +50,8 @@
     <h1>Page 2</h1>
 </header>
 <nav>
-    <a href="#">Home</a>
-    <a href="#">About</a>
+    <a href="index.jsp">Home</a>
+    <a href="page2.jsp">Page 2</a>
     <a href="#">Contact</a>
 </nav>
 <main>
