@@ -5,7 +5,7 @@ import java.sql.*;
 public class DatabaseConnection {
     private final String databaseName = "jdbc:postgresql://localhost:5432/postgres";
     private final String databaseUsername = "postgres";
-    private final String databasePassword = "";
+    private final String databasePassword = "admin";
 
     private Connection connection = null;
 
