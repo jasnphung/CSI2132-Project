@@ -1,0 +1,116 @@
+CREATE TABLE Customer(
+    customer_id int,
+    id_type varchar(20),
+    register_date date,
+    first_name varchar,
+    middle_name varchar,
+    last_name varchar,
+    address varchar,
+
+    PRIMARY KEY(customer_id)
+);
+
+CREATE TABLE Employee (
+    first_name varchar,
+    middle_name varchar,
+    last_name varchar,
+    address varchar,
+    SIN_SSN_number int,
+    job_position varchar,
+
+    PRIMARY KEY (SIN_SSN_number)
+);
+
+CREATE TABLE HotelChain (
+    chain_name varchar,
+    central_office_address varchar,
+    phone_number int,
+    email_address varchar,
+    number_of_hotels int,
+
+    PRIMARY KEY(chain_name)
+);
+
+CREATE TABLE Rooms (
+    room_number int,
+    hotel varchar,
+
+    PRIMARY KEY (room_number, hotel),
+
+    FOREIGN KEY (hotel) REFERENCES Hotel(address),
+    FOREIGN KEY (room_number) REFERENCES ArchivedRentals(room_number),
+    FOREIGN KEY (room_number) REFERENCES ArchivedBookings(room_number)
+);
+
+CREATE TABLE ArchivedRentals (
+    room_number int,
+    payment_amount int,
+    start_date date,
+    end_date date,
+
+    PRIMARY KEY(room_number, start_date, end_date),
+
+    FOREIGN KEY (room_number) REFERENCES Rooms(room_number)
+);
+
+CREATE TABLE ArchivedBookings (
+    room_number int,
+    start_date date,
+    end_date date,
+
+    PRIMARY KEY(room_number, start_date, end_date),
+
+    FOREIGN KEY (room_number) REFERENCES Rooms(room_number)
+);
+
+CREATE TABLE ContactPhoneNumber (
+    phone_number varchar,
+    contact_name varchar,
+
+    PRIMARY KEY (phone_number, contact_name),
+
+    FOREIGN KEY (phone_number) REFERENCES Hotel(phone_number),
+    FOREIGN KEY (contact_name) REFERENCES Employee(first_name)
+);
+
+CREATE TABLE ContactEmailAddress (
+    email_address varchar,
+    contact_name varchar,
+
+    PRIMARY KEY (email_address, contact_name),
+
+    FOREIGN KEY (email_address) REFERENCES Hotel(email_address),
+    FOREIGN KEY (contact_name) REFERENCES Employee(first_name)
+);
+
+CREATE TABLE HotelRoom (
+    address varchar,
+    room_number int,
+    amenities varchar,
+    price float,
+    capacity varchar,
+    problems_and_damages varchar,
+    view_type varchar,
+    extension_capabilities varchar,
+    
+    PRIMARY KEY(room_number, address),
+
+    FOREIGN KEY (address) REFERENCES Hotel(address)
+);
+
+CREATE TABLE Hotel (
+    address varchar not null,
+    phone_number varchar,
+    email_address varchar,
+    star_rating int CHECK (star_rating BETWEEN 1 AND 5),
+    number_of_rooms int,
+    manager int not null,
+    chain_name varchar not null,
+
+    PRIMARY KEY(address),
+    
+    FOREIGN KEY (manager) REFERENCES Employee(SIN_SSN_number),
+    FOREIGN KEY (chain_name) REFERENCES HotelChain(chain_name),
+    FOREIGN KEY (phone_number) REFERENCES ContactPhoneNumber(phone_number),
+    FOREIGN KEY (email_address) REFERENCES ContactEmailAddress(email_address)
+);

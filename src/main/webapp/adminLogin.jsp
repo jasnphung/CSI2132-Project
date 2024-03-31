@@ -84,13 +84,7 @@
             border-radius: 20px;
         }
         .foreground-div {
-            background-color: rgba(0, 0, 0, 0.55);
-            /* padding: 10px; */
-            border-radius: 20px;
-            height: 100%;
-            width: 100%;
             text-align: center;
-            /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -147,12 +141,33 @@
     <a href="employeeLogin.jsp">Employee Login</a>
 </nav>
 <main>
-    <h2>View 2</h2>
-    <p>This is a sample HTML page. You can replace this content with your own.</p>
+    <div class="foreground-div">
+        <h2>Admin Login</h2>
+        <form action="adminPage.jsp" method="post">
+            <label for="username" class="label-size">Username:</label>
+            <input type="text" name="username" id="username" class="input-spacing" required>
+            <br>
+            <label for="password" class="label-size">Password:</label>
+            <input type="password" name="password" id="password" class="input-spacing" required>
+            <br>
+            <input type="submit" value="Login" class="search-button">
+        </form>
+    </div>
 </main>
 <footer style=background-color:#0b1021;>
     <a href="adminLogin.jsp" style="color: white;">Admin? Login here</a>
 </footer>
+<script>
+    // Check if the SSN/SIN and last name matches an employee in the database
+    document.querySelector('form').addEventListener('submit', function(event) {
+        let username = document.querySelector('#username').value;
+        let password = document.querySelector('#password').value;
+        if (username === 'admin' && password === 'admin') {
+            return;
+        }
+        event.preventDefault();
+        alert('Invalid username or password');
+    }
+</script>
 </body>
-
 </html>

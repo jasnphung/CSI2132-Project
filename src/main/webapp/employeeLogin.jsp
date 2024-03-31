@@ -142,8 +142,8 @@
 </nav>
 <main>
     <div class="foreground-div">
-        <h2>Login</h2>
-        <form action="employeeLogin.jsp" method="post">
+        <h2>Hotel Employee Login</h2>
+        <form action="employeePage.jsp" method="post">
             <label for="SSNSIN" class="label-size">SSN/SIN:</label>
             <input type="text" name="SSNSIN" id="SSNSIN" class="input-spacing" required>
             <br>
@@ -155,7 +155,7 @@
     </div>
 </main>
 <footer style=background-color:#0b1021;>
-    <a href="adminPage.jsp" style="color: white;">Admin? Login here</a>
+    <a href="adminLogin.jsp" style="color: white;">Admin? Login here</a>
 </footer>
 <!-- TODO: Validate login -->
 <script>

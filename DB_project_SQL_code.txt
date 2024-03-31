@@ -1,0 +1,277 @@
+-- INSERTED ALREADY
+-- Insert data for HotelChain table
+INSERT INTO HotelChain (chain_name, central_office_address, phone_number, email_address, number_of_hotels)
+VALUES 
+    ('Marriott', '123 Central St, Ottawa', 1234567890, 'MariottCanada@mariott.com', 8),
+    ('Hilton', '456 Main St, Ottawa', 1234567891, 'hiltonCanada@hiltonhotels.com', 10),
+    ('Les Suites', '789 Downtown Ave, Ottawa', 1234567892, 'lessuitesOtt@lessuites.com', 9),
+    ('Best Western', '321 River Rd, Ottawa', 1234567893, 'bestWesternOtt@bestwestern.com', 12),
+    ('Four Seasons', '654 Park Blvd, Ottawa', 1234567894, 'fourSeasonsinOttawa@fourseasons.com', 11);
+
+
+
+-- Insert data for Mariott hotels
+INSERT INTO Hotel (address, phone_number, email_address, star_rating, number_of_rooms, manager, chain_name)
+VALUES
+    -- Ottawa
+    ('123 Malthouse St, Ottawa', '6135550101', 'mariottottawa1@mariott.com', 4, 25, 123456789, 'Mariott'),
+    ('456 Clydesdale Ave, Ottawa', '6135550102', 'mariottottawa2@mariott.com', 5, 30, 987654321, 'Mariott'),
+    ('789 Woodlands Blvd, Ottawa', '6135550103', 'mariottottawa3@mariott.com', 4, 20, 246810975, 'Mariott'),
+    -- Other cities in Canada
+    ('101 Selwyn Rd, Toronto', '4165550101', 'mariotttoronto1@mariott.com', 4, 22, 135792468, 'Mariott'),
+    ('202 Mayflower Ave, Vancouver', '6045550101', 'mariottvancouver1@mariott.com', 5, 26, 802467135, 'Mariott'),
+    ('303 Dalemain St, Montreal', '5145550101', 'mariottmontreal1@mariott.com', 4, 24, 123456789, 'Mariott'),
+    ('404 Melville Blvd, Calgary', '4035550101', 'mariottcalgary1@mariott.com', 3, 21, 987654321, 'Mariott'),
+    ('505 Denton Rd, Halifax', '9025550101', 'mariotthalifax1@mariott.com', 5, 28, 246810975, 'Mariott');
+
+INSERT INTO Employee (SIN_SSN_number, first_name, middle_name, last_name, address, job_position)
+
+-- Insert data for Hilton hotels
+INSERT INTO Hotel (address, phone_number, email_address, star_rating, number_of_rooms, manager, chain_name)
+VALUES
+    -- Ottawa
+    ('123 Southedge Ave, Ottawa', '6135550201', 'hiltonottawa1@hilton.com', 3, 27, 123456789, 'Hilton'),
+    ('456 Meadow St, Ottawa', '6135550202', 'hiltonottawa2@hilton.com', 4, 29, 987654321, 'Hilton'),
+    ('789 Jones Blvd, Ottawa', '6135550203', 'hiltonottawa3@hilton.com', 5, 23, 246810975, 'Hilton'),
+    -- Other cities in Canada
+    ('101 Grendale Rd, Toronto', '4165550201', 'hiltontoronto1@hilton.com', 4, 25, 135792468, 'Hilton'),
+    ('202 Ashcroft Ave, Vancouver', '6045550201', 'hiltonvancouver1@hilton.com', 5, 30, 802467135, 'Hilton'),
+    ('303 Alston St, Montreal', '5145550201', 'hiltonmontreal1@hilton.com', 3, 20, 123456789, 'Hilton'),
+    ('404 Chadwick Blvd, Calgary', '4035550201', 'hiltoncalgary1@hilton.com', 4, 28, 987654321, 'Hilton'),
+    ('505 Lawn Rd, Halifax', '9025550201', 'hiltonhalifax1@hilton.com', 5, 26, 246810975, 'Hilton');
+
+-- Insert data for Les Suites hotels
+INSERT INTO Hotel (address, phone_number, email_address, star_rating, number_of_rooms, manager, chain_name)
+VALUES
+    -- Ottawa
+    ('123 haywood Ave, Ottawa', '6135550301', 'lessuitesottawa1@lessuites.com', 4, 24, 123456789, 'Les Suites'),
+    ('456 Pleasant St, Ottawa', '6135550302', 'lessuitesottawa2@lessuites.com', 5, 21, 987654321, 'Les Suites'),
+    ('789 Ulleswater Blvd, Ottawa', '6135550303', 'lessuitesottawa3@lessuites.com', 3, 22, 246810975, 'Les Suites'),
+    -- Other cities in Canada
+    ('101 Spinny Rd, Toronto', '4165550301', 'lessuitestoronto1@lessuites.com', 3, 28, 135792468, 'Les Suites'),
+    ('202 Anthony Ave, Vancouver', '6045550301', 'lessuitesvancouver1@lessuites.com', 4, 25, 802467135, 'Les Suites'),
+    ('303 Cornfield St, Montreal', '5145550301', 'lessuitesmontreal1@lessuites.com', 5, 23, 123456789, 'Les Suites'),
+    ('404 Marabout Blvd, Calgary', '4035550301', 'lessuitescalgary1@lessuites.com', 4, 26, 987654321, 'Les Suites'),
+    ('505 Witham Rd, Halifax', '9025550301', 'lessuiteshalifax1@lessuites.com', 5, 29, 246810975, 'Les Suites');
+
+-- Insert data for Best Western hotels
+INSERT INTO Hotel (address, phone_number, email_address, star_rating, number_of_rooms, manager, chain_name)
+VALUES
+    -- Ottawa
+    ('123 Brambling Ave, Ottawa', '6135550401', 'bestwesternottawa1@bestwestern.com', 3, 28, 123456789, 'Best Western'),
+    ('456 Conway St, Ottawa', '6135550402', 'bestwesternottawa2@bestwestern.com', 4, 27, 987654321, 'Best Western'),
+    ('789 Rose Blvd, Ottawa', '6135550403', 'bestwesternottawa3@bestwestern.com', 5, 20, 246810975, 'Best Western'),
+    -- Other cities in Canada
+    ('101 Mills Rd, Toronto', '4165550401', 'bestwesterntoronto1@bestwestern.com', 5, 26, 135792468, 'Best Western'),
+    ('202 Briary Ave, Vancouver', '6045550401', 'bestwesternvancouver1@bestwestern.com', 4, 23, 802467135, 'Best Western'),
+    ('303 Skeleton St, Montreal', '5145550401', 'bestwesternmontreal1@bestwestern.com', 3, 24, 123456789, 'Best Western'),
+    ('404 Tealsbrook Blvd, Calgary', '4035550401', 'bestwesterncalgary1@bestwestern.com', 4, 29, 987654321, 'Best Western'),
+    ('505 Glebe Rd, Halifax', '9025550401', 'bestwesternhalifax1@bestwestern.com', 5, 30, 246810975, 'Best Western');
+
+-- Insert data for Four Seasons hotels
+INSERT INTO Hotel (address, phone_number, email_address, star_rating, number_of_rooms, manager, chain_name)
+VALUES
+    -- Ottawa
+    ('123 Curtis Ave, Ottawa', '6135550501', 'fourseasonsottawa1@fourseasons.com', 4, 22, 123456789, 'Four Seasons'),
+    ('456 Chitham St, Ottawa', '6135550502', 'fourseasonsottawa2@fourseasons.com', 5, 26, 987654321, 'Four Seasons'),
+    ('789 Somerset Blvd, Ottawa', '6135550503', 'fourseasonsottawa3@fourseasons.com', 3, 25, 246810975, 'Four Seasons'),
+    -- Other cities in Canada
+    ('101 Bank Rd, Toronto', '4165550501', 'fourseasonstoronto1@fourseasons.com', 3, 24, 135792468, 'Four Seasons'),
+    ('202 King Edward Ave, Vancouver', '6045550501', 'fourseasonsvancouver1@fourseasons.com', 4, 28, 802467135, 'Four Seasons'),
+    ('303 Queen Victoria St, Montreal', '5145550501', 'fourseasonsmontreal1@fourseasons.com', 5, 20, 123456789, 'Four Seasons'),
+    ('404 Saint Catharine Blvd, Calgary', '4035550501', 'fourseasonscalgary1@fourseasons.com', 4, 29, 987654321, 'Four Seasons'),
+    ('505 Niagara Rd, Halifax', '9025550501', 'fourseasonshalifax1@fourseasons.com', 5, 23, 246810975, 'Four Seasons');
+
+
+-- Insert data for Mariott hotel rooms
+INSERT INTO HotelRoom (address, room_number, amenities, price, capacity, problems_and_damages, view_type, extension_capabilities)
+VALUES
+    -- Ottawa Mariott
+    ('123 Malthouse St, Ottawa', 101, 'Free Wi-Fi, TV, Mini Fridge', 150.00, 'Single', NULL, 'Mountain', 'Possible'),
+    ('123 Malthouse St, Ottawa', 102, 'Free Wi-Fi, TV, Mini Fridge', 200.00, 'Double', NULL, 'Sea', 'Possible'),
+    ('123 Malthouse St, Ottawa', 103, 'Free Wi-Fi, TV, Mini Fridge', 250.00, 'Double', NULL, 'Mountain', 'Possible'),
+    ('123 Malthouse St, Ottawa', 104, 'Free Wi-Fi, TV, Mini Fridge', 300.00, 'Triple', NULL, 'Sea', 'Possible'),
+    ('123 Malthouse St, Ottawa', 105, 'Free Wi-Fi, TV, Mini Fridge', 350.00, 'Quadruple', NULL, 'Mountain', 'Possible'),
+    ('123 Malthouse St, Ottawa', 106, 'Free Wi-Fi, TV, Mini Fridge', 400.00, 'Suite', NULL, 'Sea', 'Possible'),
+    -- Other Mariott locations
+    ('101 Selwyn Rd, Toronto', 201, 'Free Wi-Fi, TV, Mini Fridge', 180.00, 'Single', NULL, 'Sea', 'Possible'),
+    ('202 Mayflower Ave, Vancouver', 202, 'Free Wi-Fi, TV, Mini Fridge', 220.00, 'Double', NULL, 'Mountain', 'Possible'),
+    ('303 Dalemain St, Montreal', 203, 'Free Wi-Fi, TV, Mini Fridge', 260.00, 'Triple', NULL, 'Sea', 'Possible'),
+    ('404 Melville Blvd, Calgary', 204, 'Free Wi-Fi, TV, Mini Fridge', 280.00, 'Quadruple', NULL, 'Mountain', 'Possible'),
+    ('505 Denton Rd, Halifax', 205, 'Free Wi-Fi, TV, Mini Fridge', 320.00, 'Suite', NULL, 'Sea', 'Possible');
+
+-- Insert data for Hilton hotel rooms
+INSERT INTO HotelRoom (address, room_number, amenities, price, capacity, problems_and_damages, view_type, extension_capabilities)
+VALUES
+    -- Ottawa Hilton
+    ('123 Southedge Ave, Ottawa', 201, 'Free Wi-Fi, TV, Mini Fridge', 120.00, 'Single', NULL, 'Mountain', 'Possible'),
+    ('123 Southedge Ave, Ottawa', 202, 'Free Wi-Fi, TV, Mini Fridge', 180.00, 'Double', NULL, 'Sea', 'Possible'),
+    ('123 Southedge Ave, Ottawa', 203, 'Free Wi-Fi, TV, Mini Fridge', 220.00, 'Double', NULL, 'Mountain', 'Possible'),
+    ('123 Southedge Ave, Ottawa', 204, 'Free Wi-Fi, TV, Mini Fridge', 260.00, 'Triple', NULL, 'Sea', 'Possible'),
+    ('123 Southedge Ave, Ottawa', 205, 'Free Wi-Fi, TV, Mini Fridge', 300.00, 'Quadruple', NULL, 'Mountain', 'Possible'),
+    ('123 Southedge Ave, Ottawa', 206, 'Free Wi-Fi, TV, Mini Fridge', 350.00, 'Suite', NULL, 'Sea', 'Possible'),
+    -- Other Hilton locations
+    ('101 Grendale Rd, Toronto', 301, 'Free Wi-Fi, TV, Mini Fridge', 140.00, 'Single', NULL, 'Sea', 'Possible'),
+    ('202 Ashcroft Ave, Vancouver', 302, 'Free Wi-Fi, TV, Mini Fridge', 200.00, 'Double', NULL, 'Mountain', 'Possible'),
+    ('303 Alston St, Montreal', 303, 'Free Wi-Fi, TV, Mini Fridge', 240.00, 'Triple', NULL, 'Sea', 'Possible'),
+    ('404 Chadwick Blvd, Calgary', 304, 'Free Wi-Fi, TV, Mini Fridge', 270.00, 'Quadruple', NULL, 'Mountain', 'Possible'),
+    ('505 Lawn Rd, Halifax', 305, 'Free Wi-Fi, TV, Mini Fridge', 310.00, 'Suite', NULL, 'Sea', 'Possible');
+
+-- Insert data for Les Suites hotel rooms
+INSERT INTO HotelRoom (address, room_number, amenities, price, capacity, problems_and_damages, view_type, extension_capabilities)
+VALUES
+    -- Ottawa Les Suites
+    ('123 haywood Ave, Ottawa', 301, 'Free Wi-Fi, TV, Mini Fridge', 110.00, 'Single', NULL, 'Mountain', 'Possible'),
+    ('123 haywood Ave, Ottawa', 302, 'Free Wi-Fi, TV, Mini Fridge', 160.00, 'Double', NULL, 'Sea', 'Possible'),
+    ('123 haywood Ave, Ottawa', 303, 'Free Wi-Fi, TV, Mini Fridge', 200.00, 'Double', NULL, 'Mountain', 'Possible'),
+    ('123 haywood Ave, Ottawa', 304, 'Free Wi-Fi, TV, Mini Fridge', 240.00, 'Triple', NULL, 'Sea', 'Possible'),
+    ('123 haywood Ave, Ottawa', 305, 'Free Wi-Fi, TV, Mini Fridge', 280.00, 'Quadruple', NULL, 'Mountain', 'Possible'),
+    ('123 haywood Ave, Ottawa', 306, 'Free Wi-Fi, TV, Mini Fridge', 330.00, 'Suite', NULL, 'Sea', 'Possible'),
+    -- Other Les Suites locations
+    ('101 Spinny Rd, Toronto', 401, 'Free Wi-Fi, TV, Mini Fridge', 130.00, 'Single', NULL, 'Sea', 'Possible'),
+    ('202 Anthony Ave, Vancouver', 402, 'Free Wi-Fi, TV, Mini Fridge', 190.00, 'Double', NULL, 'Mountain', 'Possible'),
+    ('303 Cornfield St, Montreal', 403, 'Free Wi-Fi, TV, Mini Fridge', 230.00, 'Triple', NULL, 'Sea', 'Possible'),
+    ('404 Marabout Blvd, Calgary', 404, 'Free Wi-Fi, TV, Mini Fridge', 260.00, 'Quadruple', NULL, 'Mountain', 'Possible'),
+    ('505 Witham Rd, Halifax', 405, 'Free Wi-Fi, TV, Mini Fridge', 300.00, 'Suite', NULL, 'Sea', 'Possible');
+
+-- Insert data for Best Western hotel rooms
+INSERT INTO HotelRoom (address, room_number, amenities, price, capacity, problems_and_damages, view_type, extension_capabilities)
+VALUES
+    -- Ottawa Best Western
+    ('123 Brambling Ave, Ottawa', 401, 'Free Wi-Fi, TV, Mini Fridge', 100.00, 'Single', NULL, 'Mountain', 'Possible'),
+    ('123 Brambling Ave, Ottawa', 402, 'Free Wi-Fi, TV, Mini Fridge', 150.00, 'Double', NULL, 'Sea', 'Possible'),
+    ('123 Brambling Ave, Ottawa', 403, 'Free Wi-Fi, TV, Mini Fridge', 190.00, 'Double', NULL, 'Mountain', 'Possible'),
+    ('123 Brambling Ave, Ottawa', 404, 'Free Wi-Fi, TV, Mini Fridge', 230.00, 'Triple', NULL, 'Sea', 'Possible'),
+    ('123 Brambling Ave, Ottawa', 405, 'Free Wi-Fi, TV, Mini Fridge', 270.00, 'Quadruple', NULL, 'Mountain', 'Possible'),
+    ('123 Brambling Ave, Ottawa', 406, 'Free Wi-Fi, TV, Mini Fridge', 320.00, 'Suite', NULL, 'Sea', 'Possible'),
+    -- Other Best Western locations
+    ('101 Mills Rd, Toronto', 501, 'Free Wi-Fi, TV, Mini Fridge', 110.00, 'Single', NULL, 'Sea', 'Possible'),
+    ('202 Briary Ave, Vancouver', 502, 'Free Wi-Fi, TV, Mini Fridge', 160.00, 'Double', NULL, 'Mountain', 'Possible'),
+    ('303 Skeleton St, Montreal', 503, 'Free Wi-Fi, TV, Mini Fridge', 200.00, 'Triple', NULL, 'Sea', 'Possible'),
+    ('404 Tealsbrook Blvd, Calgary', 504, 'Free Wi-Fi, TV, Mini Fridge', 240.00, 'Quadruple', NULL, 'Mountain', 'Possible'),
+    ('505 Glebe Rd, Halifax', 505, 'Free Wi-Fi, TV, Mini Fridge', 280.00, 'Suite', NULL, 'Sea', 'Possible');
+
+-- Insert data for Four Seasons hotel rooms
+INSERT INTO HotelRoom (address, room_number, amenities, price, capacity, problems_and_damages, view_type, extension_capabilities)
+VALUES
+    -- Ottawa Four Seasons
+    ('123 Curtis Ave, Ottawa', 501, 'Free Wi-Fi, TV, Mini Fridge', 200.00, 'Single', NULL, 'Mountain', 'Possible'),
+    ('123 Curtis Ave, Ottawa', 502, 'Free Wi-Fi, TV, Mini Fridge', 250.00, 'Double', NULL, 'Sea', 'Possible'),
+    ('123 Curtis Ave, Ottawa', 503, 'Free Wi-Fi, TV, Mini Fridge', 300.00, 'Double', NULL, 'Mountain', 'Possible'),
+    ('123 Curtis Ave, Ottawa', 504, 'Free Wi-Fi, TV, Mini Fridge', 350.00, 'Triple', NULL, 'Sea', 'Possible'),
+    ('123 Curtis Ave, Ottawa', 505, 'Free Wi-Fi, TV, Mini Fridge', 400.00, 'Quadruple', NULL, 'Mountain', 'Possible'),
+    ('123 Curtis Ave, Ottawa', 506, 'Free Wi-Fi, TV, Mini Fridge', 450.00, 'Suite', NULL, 'Sea', 'Possible'),
+    -- Other Four Seasons locations
+    ('101 Bank Rd, Toronto', 601, 'Free Wi-Fi, TV, Mini Fridge', 220.00, 'Single', NULL, 'Sea', 'Possible'),
+    ('202 King Edward Ave, Vancouver', 602, 'Free Wi-Fi, TV, Mini Fridge', 270.00, 'Double', NULL, 'Mountain', 'Possible'),
+    ('303 Queen Victoria St, Montreal', 603, 'Free Wi-Fi, TV, Mini Fridge', 320.00, 'Triple', NULL, 'Sea', 'Possible'),
+    ('404 Saint Catharine Blvd, Calgary', 604, 'Free Wi-Fi, TV, Mini Fridge', 370.00, 'Quadruple', NULL, 'Mountain', 'Possible'),
+    ('505 Niagara Rd, Halifax', 605, 'Free Wi-Fi, TV, Mini Fridge', 420.00, 'Suite', NULL, 'Sea', 'Possible');
+
+
+SELECT h.address, COUNT(hr.room_number) AS mountain_view_rooms_count
+FROM Hotel h
+JOIN HotelRoom hr ON h.address = hr.address
+WHERE h.address LIKE '%Ottawa%' AND hr.view_type = 'Mountain'
+GROUP BY h.address;
+
+SELECT address, chain_name
+FROM Hotel
+WHERE address LIKE '%Ottawa%' AND address IN (
+    SELECT address
+    FROM HotelRoom
+    WHERE view_type = 'Mountain'
+);
+
+SELECT hr.address, h.chain_name, hr.room_number, hr.view_type
+FROM HotelRoom hr
+JOIN Hotel h ON hr.address = h.address
+WHERE hr.address LIKE '%Toronto%' AND hr.view_type = 'Sea';
+
+SELECT h.address, h.chain_name, hr.room_number, hr.problems_and_damages
+FROM HotelRoom hr
+JOIN Hotel h ON hr.address = h.address
+WHERE h.chain_name = 'Best Western' AND hr.problems_and_damages IS NULL;
+
+
+-- Trigger to enforce positive price constraint on HotelRoom
+CREATE TRIGGER PositivePriceCheck
+BEFORE INSERT ON HotelRoom
+FOR EACH ROW
+BEGIN
+    IF NEW.price <= 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Price must be positive';
+    END IF;
+END;
+
+-- Trigger to ensure Hotel.manager references an existing employee
+CREATE TRIGGER ManagerEmployeeCheck
+BEFORE INSERT ON Hotel
+FOR EACH ROW
+BEGIN
+    DECLARE manager_count INT;
+    SELECT COUNT(*) INTO manager_count FROM Employee WHERE SIN_SSN_number = NEW.manager;
+    IF manager_count = 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Manager must reference an existing employee';
+    END IF;
+END;
+
+-- Trigger to ensure start date is before end date in ArchivedBookings
+CREATE TRIGGER BookingDateCheck
+BEFORE INSERT ON ArchivedBookings
+FOR EACH ROW
+BEGIN
+    IF NEW.start_date >= NEW.end_date THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Booking start date must be before end date';
+    END IF;
+END;
+
+-- Trigger to ensure start date is before end date in ArchivedRentals
+CREATE TRIGGER RentalDateCheck
+BEFORE INSERT ON ArchivedRentals
+FOR EACH ROW
+BEGIN
+    IF NEW.start_date >= NEW.end_date THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Rental start date must be before end date';
+    END IF;
+END;
+
+-- Trigger to ensure HotelChain.chain_name is unique
+CREATE TRIGGER UniqueChainNameCheck
+BEFORE INSERT ON HotelChain
+FOR EACH ROW
+BEGIN
+    DECLARE chain_count INT;
+    SELECT COUNT(*) INTO chain_count FROM HotelChain WHERE chain_name = NEW.chain_name;
+    IF chain_count > 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Chain name must be unique';
+    END IF;
+END;
+
+-- Trigger to ensure archivedBookings.end date is before or same as archivedRentals.start date
+CREATE TRIGGER BookingRentalDateCheck
+BEFORE INSERT ON ArchivedBookings
+FOR EACH ROW
+BEGIN
+    IF NEW.end_date > (SELECT MIN(start_date) FROM ArchivedRentals WHERE room_number = NEW.room_number) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Booking end date must be before or the same as the rental start date';
+    END IF;
+END;
+
+-- Trigger to ensure archivedBookings.end date is before or same as archivedRentals.start date
+CREATE TRIGGER RentalBookingDateCheck
+BEFORE INSERT ON ArchivedRentals
+FOR EACH ROW
+BEGIN
+    IF (SELECT MIN(start_date) FROM ArchivedRentals WHERE room_number = NEW.room_number) < NEW.end_date THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Rental start date must be after or the same as the booking end date';
+    END IF;
+END;
+

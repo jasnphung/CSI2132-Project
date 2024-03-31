@@ -151,7 +151,7 @@
     <p>This is a sample HTML page. You can replace this content with your own.</p>
 </main>
 <footer style=background-color:#0b1021;>
-    <a href="adminPage.jsp" style="color: white;">Admin? Login here</a>
+    <a href="adminLogin.jsp" style="color: white;">Admin? Login here</a>
 </footer>
 </body>
 
