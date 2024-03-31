@@ -2,12 +2,8 @@ package com.DatabaseProjectWebsite.Tables;
 
 import com.DatabaseProjectWebsite.DatabaseConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
 import java.sql.*;
+import java.util.*;
 
 public class HotelChain {
     private String chainName;
