@@ -160,6 +160,11 @@
 <!-- TODO: Validate login -->
 <script>
     // Check if the SSN/SIN and last name matches an employee in the database
+    document.querySelector('form').addEventListener('submit', function(event) {
+        const SSNSIN = document.querySelector('#SSNSIN').value;
+        const lastName = document.querySelector('#lastName').value;
+
+    });
 </script>
 </body>
 </html>

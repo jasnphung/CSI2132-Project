@@ -165,6 +165,10 @@
 
 <%@ page import="java.util.List" %>
 <%@ page import="com.DatabaseProjectWebsite.Tables.HotelChain" %>
+<%@ page import="com.DatabaseProjectWebsite.Tables.Hotel" %>
+<%@ page import="com.DatabaseProjectWebsite.Tables.HotelRoom" %>
+<%@ page import="com.DatabaseProjectWebsite.Tables.Employee" %>
+<%@ page import="com.DatabaseProjectWebsite.Tables.Customer" %>
 <%@ page import="java.util.ArrayList" %>
 <%
 
@@ -175,10 +179,38 @@
     } catch (Exception e) {
         e.printStackTrace();
     }
+
+    // get all hotels from database
+    List<Hotel> hotels = null;
+    try {
+        hotels = Hotel.getAllHotels();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    List<HotelRoom> rooms = null;
+    try {
+        rooms = HotelRoom.getAllHotelRooms();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    List<Employee> employees = null;
+    try {
+        employees = Employee.getAllEmployees();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    List<Customer> customers = null;
+    try {
+        customers = Customer.getAllCustomers();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
 %>
 
-<main>
-    <h2>List of hotels</h2>
+<main style="padding-bottom: 50px">
      <div class="container">
             <div class="row" id="row">
                 <div class="col-md-12">
@@ -187,7 +219,11 @@
                             <% if (chains == null || chains.size() == 0) { %>
                             <h1 style="margin-top: 5rem;">No Hotel Chains found!</h1>
                             <% } else { %>
-                            <div class="table-responsive">
+
+                            <h2>Hotel chains</h2>
+
+                            <!-- First table -->
+                            <div>
                                 <table class="table center-table">
                                     <thead>
                                     <tr>
@@ -198,28 +234,141 @@
                                         <th class="table-header">Number of Hotels</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
                                     <%
-                                    for (HotelChain hc : chains) { %>
+                                        for (HotelChain hc : chains) { %>
                                     <tr>
                                         <td class="table-data"><%= hc.getChainName() %></td>
                                         <td class="table-data"><%= hc.getCentralOfficeAddress() %></td>
                                         <td class="table-data"><%= hc.getPhoneNumber() %></td>
                                         <td class="table-data"><%= hc.getEmailAddress() %></td>
                                         <td class="table-data"><%= hc.getNumberOfHotels() %></td>
-                                        <td>
-                                            <a type="button" onclick="setModalFields(this)"
-                                               data-toggle="modal" data-id="<%= hc.getChainName() %>"
-                                               data-address="<%= hc.getCentralOfficeAddress() %>"                                               data-phone="<%= hc.getPhoneNumber() %>"
-                                               data-email="<%= hc.getEmailAddress() %>"
-                                               data-numHotels="<%= hc.getNumberOfHotels() %>"
-                                               data-target="#editModal">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                        </td>
                                     </tr>
                                     <% } %>
-                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h2 style="margin-top: 50px;">Hotels</h2>
+
+                            <!-- Second table -->
+                            <div>
+                                <table class="table center-table">
+                                    <thead>
+                                    <tr>
+                                        <th class="table-header">Address</th>
+                                        <th class="table-header">Phone number</th>
+                                        <th class="table-header">Email address</th>
+                                        <th class="table-header">Star rating</th>
+                                        <th class="table-header">Total number of rooms</th>
+                                        <th class="table-header">Chain name</th>
+                                        <th class="table-header">Manager ID</th>
+                                    </tr>
+                                    </thead>
+                                    <%
+                                        for (Hotel h : hotels) { %>
+                                    <tr>
+                                        <td class="table-data"><%= h.getAddress() %></td>
+                                        <td class="table-data"><%= h.getPhoneNumber() %></td>
+                                        <td class="table-data"><%= h.getEmailAddress() %></td>
+                                        <td class="table-data"><%= h.getStarRating() %></td>
+                                        <td class="table-data"><%= h.getNumberOfRooms() %></td>
+                                        <td class="table-data"><%= h.getChainName() %></td>
+                                        <td class="table-data"><%= h.getManagerID() %></td>
+                                    </tr>
+                                    <% } %>
+                                </table>
+                            </div>
+
+                            <h2 style="margin-top: 50px;">Hotel rooms</h2>
+
+                            <!-- Third table -->
+                            <div>
+                                <table class="table center-table">
+                                    <thead>
+                                    <tr>
+                                        <th class="table-header">Address</th>
+                                        <th class="table-header">Room number</th>
+                                        <th class="table-header">Amenities</th>
+                                        <th class="table-header">Price</th>
+                                        <th class="table-header">Capacity</th>
+                                        <th class="table-header">Problems and damages</th>
+                                        <th class="table-header">View type</th>
+                                        <th class="table-header">Extension capabilities</th>
+                                        <th class="table-header">Status</th>
+                                    </tr>
+                                    </thead>
+                                    <%
+                                        for (HotelRoom r : rooms) { %>
+                                    <tr>
+                                        <td class="table-data"><%= r.getAddress() %></td>
+                                        <td class="table-data"><%= r.getRoomNumber() %></td>
+                                        <td class="table-data"><%= r.getAmenities() %></td>
+                                        <td class="table-data"><%= r.getPrice() %></td>
+                                        <td class="table-data"><%= r.getCapacity() %></td>
+                                        <td class="table-data"><%= r.getProblemsAndDamages() %></td>
+                                        <td class="table-data"><%= r.getViewType() %></td>
+                                        <td class="table-data"><%= r.getExtensionCapabilities() %></td>
+                                        <td class="table-data" style="color:<%= r.getStatus().equalsIgnoreCase("available") ? "green" : (r.getStatus().equalsIgnoreCase("booked") ? "yellow" : "red") %>;"><%= r.getStatus() %></td>                                    </tr>
+                                    <% } %>
+                                </table>
+                            </div>
+
+                            <h2 style="margin-top: 50px;">Employees</h2>
+
+                            <!-- Fourth table -->
+                            <div>
+                                <table class="table center-table">
+                                    <thead>
+                                    <tr>
+                                        <th class="table-header">First name</th>
+                                        <th class="table-header">Middle name</th>
+                                        <th class="table-header">Last name</th>
+                                        <th class="table-header">Work address</th>
+                                        <th class="table-header">SIN/SSN number</th>
+                                        <th class="table-header">Job position</th>
+                                    </tr>
+                                    </thead>
+                                    <%
+                                        for (Employee e : employees) { %>
+                                    <tr>
+                                        <td class="table-data"><%= e.getFirstName() %></td>
+                                        <td class="table-data"><%= e.getMiddleName() %></td>
+                                        <td class="table-data"><%= e.getLastName() %></td>
+                                        <td class="table-data"><%= e.getAddress() %></td>
+                                        <td class="table-data"><%= e.getSin_ssn() %></td>
+                                        <td class="table-data"><%= e.getJobPosition() %></td>
+                                    </tr>
+                                    <% } %>
+                                </table>
+                            </div>
+
+                            <h2 style="margin-top: 50px;">Customers</h2>
+
+                            <!-- Fifth table -->
+                            <div>
+                                <table class="table center-table">
+                                    <thead>
+                                    <tr>
+                                        <th class="table-header">Customer ID</th>
+                                        <th class="table-header">ID type</th>
+                                        <th class="table-header">Register date</th>
+                                        <th class="table-header">First name</th>
+                                        <th class="table-header">Middle name</th>
+                                        <th class="table-header">Last name</th>
+                                        <th class="table-header">Address</th>
+                                    </tr>
+                                    </thead>
+                                    <%
+                                        for (Customer c : customers) { %>
+                                    <tr>
+                                        <td class="table-data"><%= c.getCustomerID() %></td>
+                                        <td class="table-data"><%= c.getIDType() %></td>
+                                        <td class="table-data"><%= c.getRegisterDate() %></td>
+                                        <td class="table-data"><%= c.getFirstName() %></td>
+                                        <td class="table-data"><%= c.getMiddleName() %></td>
+                                        <td class="table-data"><%= c.getLastName() %></td>
+                                        <td class="table-data"><%= c.getAddress() %></td>
+                                    </tr>
+                                    <% } %>
                                 </table>
                             </div>
                             <% } %>

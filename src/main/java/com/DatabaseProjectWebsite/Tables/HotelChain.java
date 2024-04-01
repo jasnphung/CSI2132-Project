@@ -49,7 +49,7 @@ public class HotelChain {
     public static List<HotelChain> getAllHotelChains() throws Exception {
 
         // sql query
-        String sql = "SELECT * FROM HotelChain";
+        String sql = "SELECT * FROM dbproj.hotelchain";
         // connection object
         DatabaseConnection db = new DatabaseConnection();
 
@@ -98,7 +98,7 @@ public class HotelChain {
         String message = "";
 
         // sql query
-        String sql = "UPDATE HotelChain SET central_office_address=?, phone_number=?, email_address=?, number_of_chains=? WHERE chain_name=?;";
+        String sql = "UPDATE dbproj.HotelChain SET central_office_address=?, phone_number=?, email_address=?, number_of_chains=? WHERE chain_name=?;";
         // connection object
         DatabaseConnection db = new DatabaseConnection();
 

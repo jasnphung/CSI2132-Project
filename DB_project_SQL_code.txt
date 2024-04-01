@@ -8,26 +8,70 @@ VALUES
     ('Best Western', '321 River Rd, Ottawa', 1234567893, 'bestWesternOtt@bestwestern.com', 12),
     ('Four Seasons', '654 Park Blvd, Ottawa', 1234567894, 'fourSeasonsinOttawa@fourseasons.com', 11);
 
+-- Insert data into contactemailaddress table
+INSERT INTO dbproj.contactemailaddress (email_address)
+VALUES
+    ('mariottottawa1@mariott.com'),
+    ('mariottottawa2@mariott.com'),
+    ('mariottottawa3@mariott.com'),
+    ('mariotttoronto1@mariott.com'),
+    ('mariottvancouver1@mariott.com'),
+    ('mariottmontreal1@mariott.com'),
+    ('mariottcalgary1@mariott.com'),
+    ('mariotthalifax1@mariott.com');
 
+-- Insert data into contactphonenumber table
+INSERT INTO dbproj.contactphonenumber (phone_number)
+VALUES
+    ('6135550101'),
+    ('6135550102'),
+    ('6135550103'),
+    ('4165550101'),
+    ('6045550101'),
+    ('5145550101'),
+    ('4035550101'),
+    ('9025550101');
 
 -- Insert data for Mariott hotels
-INSERT INTO Hotel (address, phone_number, email_address, star_rating, number_of_rooms, manager, chain_name)
+INSERT INTO dbproj.Hotel (address, phone_number, email_address, star_rating, number_of_rooms, manager, chain_name)
 VALUES
     -- Ottawa
-    ('123 Malthouse St, Ottawa', '6135550101', 'mariottottawa1@mariott.com', 4, 25, 123456789, 'Mariott'),
-    ('456 Clydesdale Ave, Ottawa', '6135550102', 'mariottottawa2@mariott.com', 5, 30, 987654321, 'Mariott'),
-    ('789 Woodlands Blvd, Ottawa', '6135550103', 'mariottottawa3@mariott.com', 4, 20, 246810975, 'Mariott'),
+    ('123 Malthouse St, Ottawa', '6135550101', 'mariottottawa1@mariott.com', 4, 25, 123456789, 'Marriott'),
+    ('456 Clydesdale Ave, Ottawa', '6135550102', 'mariottottawa2@mariott.com', 5, 30, 987654321, 'Marriott'),
+    ('789 Woodlands Blvd, Ottawa', '6135550103', 'mariottottawa3@mariott.com', 4, 20, 246810975, 'Marriott'),
     -- Other cities in Canada
-    ('101 Selwyn Rd, Toronto', '4165550101', 'mariotttoronto1@mariott.com', 4, 22, 135792468, 'Mariott'),
-    ('202 Mayflower Ave, Vancouver', '6045550101', 'mariottvancouver1@mariott.com', 5, 26, 802467135, 'Mariott'),
-    ('303 Dalemain St, Montreal', '5145550101', 'mariottmontreal1@mariott.com', 4, 24, 123456789, 'Mariott'),
-    ('404 Melville Blvd, Calgary', '4035550101', 'mariottcalgary1@mariott.com', 3, 21, 987654321, 'Mariott'),
-    ('505 Denton Rd, Halifax', '9025550101', 'mariotthalifax1@mariott.com', 5, 28, 246810975, 'Mariott');
+    ('101 Selwyn Rd, Toronto', '4165550101', 'mariotttoronto1@mariott.com', 4, 22, 135792468, 'Marriott'),
+    ('202 Mayflower Ave, Vancouver', '6045550101', 'mariottvancouver1@mariott.com', 5, 26, 802467135, 'Marriott'),
+    ('303 Dalemain St, Montreal', '5145550101', 'mariottmontreal1@mariott.com', 4, 24, 123456789, 'Marriott'),
+    ('404 Melville Blvd, Calgary', '4035550101', 'mariottcalgary1@mariott.com', 3, 21, 987654321, 'Marriott'),
+    ('505 Denton Rd, Halifax', '9025550101', 'mariotthalifax1@mariott.com', 5, 28, 246810975, 'Marriott');
 
-INSERT INTO Employee (SIN_SSN_number, first_name, middle_name, last_name, address, job_position)
+-- Insert data into contactemailaddress table for Hilton hotels
+INSERT INTO dbproj.contactemailaddress (email_address)
+VALUES
+    ('hiltonottawa1@hilton.com'),
+    ('hiltonottawa2@hilton.com'),
+    ('hiltonottawa3@hilton.com'),
+    ('hiltontoronto1@hilton.com'),
+    ('hiltonvancouver1@hilton.com'),
+    ('hiltonmontreal1@hilton.com'),
+    ('hiltoncalgary1@hilton.com'),
+    ('hiltonhalifax1@hilton.com');
+
+-- Insert data into contactphonenumber table for Hilton hotels
+INSERT INTO dbproj.contactphonenumber (phone_number)
+VALUES
+    ('6135550201'),
+    ('6135550202'),
+    ('6135550203'),
+    ('4165550201'),
+    ('6045550201'),
+    ('5145550201'),
+    ('4035550201'),
+    ('9025550201');
 
 -- Insert data for Hilton hotels
-INSERT INTO Hotel (address, phone_number, email_address, star_rating, number_of_rooms, manager, chain_name)
+INSERT INTO dbproj.Hotel (address, phone_number, email_address, star_rating, number_of_rooms, manager, chain_name)
 VALUES
     -- Ottawa
     ('123 Southedge Ave, Ottawa', '6135550201', 'hiltonottawa1@hilton.com', 3, 27, 123456789, 'Hilton'),
@@ -40,11 +84,35 @@ VALUES
     ('404 Chadwick Blvd, Calgary', '4035550201', 'hiltoncalgary1@hilton.com', 4, 28, 987654321, 'Hilton'),
     ('505 Lawn Rd, Halifax', '9025550201', 'hiltonhalifax1@hilton.com', 5, 26, 246810975, 'Hilton');
 
+-- Insert data into contactemailaddress table for Les Suites hotels
+INSERT INTO dbproj.contactemailaddress (email_address)
+VALUES
+    ('lessuitesottawa1@lessuites.com'),
+    ('lessuitesottawa2@lessuites.com'),
+    ('lessuitesottawa3@lessuites.com'),
+    ('lessuitestoronto1@lessuites.com'),
+    ('lessuitesvancouver1@lessuites.com'),
+    ('lessuitesmontreal1@lessuites.com'),
+    ('lessuitescalgary1@lessuites.com'),
+    ('lessuiteshalifax1@lessuites.com');
+
+-- Insert data into contactphonenumber table for Les Suites hotels
+INSERT INTO dbproj.contactphonenumber (phone_number)
+VALUES
+    ('6135550301'),
+    ('6135550302'),
+    ('6135550303'),
+    ('4165550301'),
+    ('6045550301'),
+    ('5145550301'),
+    ('4035550301'),
+    ('9025550301');
+
 -- Insert data for Les Suites hotels
-INSERT INTO Hotel (address, phone_number, email_address, star_rating, number_of_rooms, manager, chain_name)
+INSERT INTO dbproj.Hotel (address, phone_number, email_address, star_rating, number_of_rooms, manager, chain_name)
 VALUES
     -- Ottawa
-    ('123 haywood Ave, Ottawa', '6135550301', 'lessuitesottawa1@lessuites.com', 4, 24, 123456789, 'Les Suites'),
+    ('123 Haywood Ave, Ottawa', '6135550301', 'lessuitesottawa1@lessuites.com', 4, 24, 123456789, 'Les Suites'),
     ('456 Pleasant St, Ottawa', '6135550302', 'lessuitesottawa2@lessuites.com', 5, 21, 987654321, 'Les Suites'),
     ('789 Ulleswater Blvd, Ottawa', '6135550303', 'lessuitesottawa3@lessuites.com', 3, 22, 246810975, 'Les Suites'),
     -- Other cities in Canada
@@ -54,8 +122,32 @@ VALUES
     ('404 Marabout Blvd, Calgary', '4035550301', 'lessuitescalgary1@lessuites.com', 4, 26, 987654321, 'Les Suites'),
     ('505 Witham Rd, Halifax', '9025550301', 'lessuiteshalifax1@lessuites.com', 5, 29, 246810975, 'Les Suites');
 
+-- Insert data into contactemailaddress table for Best Western hotels
+INSERT INTO dbproj.contactemailaddress (email_address)
+VALUES
+    ('bestwesternottawa1@bestwestern.com'),
+    ('bestwesternottawa2@bestwestern.com'),
+    ('bestwesternottawa3@bestwestern.com'),
+    ('bestwesterntoronto1@bestwestern.com'),
+    ('bestwesternvancouver1@bestwestern.com'),
+    ('bestwesternmontreal1@bestwestern.com'),
+    ('bestwesterncalgary1@bestwestern.com'),
+    ('bestwesternhalifax1@bestwestern.com');
+
+-- Insert data into contactphonenumber table for Best Western hotels
+INSERT INTO dbproj.contactphonenumber (phone_number)
+VALUES
+    ('6135550401'),
+    ('6135550402'),
+    ('6135550403'),
+    ('4165550401'),
+    ('6045550401'),
+    ('5145550401'),
+    ('4035550401'),
+    ('9025550401');
+
 -- Insert data for Best Western hotels
-INSERT INTO Hotel (address, phone_number, email_address, star_rating, number_of_rooms, manager, chain_name)
+INSERT INTO dbproj.Hotel (address, phone_number, email_address, star_rating, number_of_rooms, manager, chain_name)
 VALUES
     -- Ottawa
     ('123 Brambling Ave, Ottawa', '6135550401', 'bestwesternottawa1@bestwestern.com', 3, 28, 123456789, 'Best Western'),
@@ -68,8 +160,32 @@ VALUES
     ('404 Tealsbrook Blvd, Calgary', '4035550401', 'bestwesterncalgary1@bestwestern.com', 4, 29, 987654321, 'Best Western'),
     ('505 Glebe Rd, Halifax', '9025550401', 'bestwesternhalifax1@bestwestern.com', 5, 30, 246810975, 'Best Western');
 
+-- Insert data into contactemailaddress table for Four Seasons hotels
+INSERT INTO dbproj.contactemailaddress (email_address)
+VALUES
+    ('fourseasonsottawa1@fourseasons.com'),
+    ('fourseasonsottawa2@fourseasons.com'),
+    ('fourseasonsottawa3@fourseasons.com'),
+    ('fourseasonstoronto1@fourseasons.com'),
+    ('fourseasonsvancouver1@fourseasons.com'),
+    ('fourseasonsmontreal1@fourseasons.com'),
+    ('fourseasonscalgary1@fourseasons.com'),
+    ('fourseasonshalifax1@fourseasons.com');
+
+-- Insert data into contactphonenumber table for Four Seasons hotels
+INSERT INTO dbproj.contactphonenumber (phone_number)
+VALUES
+    ('6135550501'),
+    ('6135550502'),
+    ('6135550503'),
+    ('4165550501'),
+    ('6045550501'),
+    ('5145550501'),
+    ('4035550501'),
+    ('9025550501');
+
 -- Insert data for Four Seasons hotels
-INSERT INTO Hotel (address, phone_number, email_address, star_rating, number_of_rooms, manager, chain_name)
+INSERT INTO dbproj.Hotel (address, phone_number, email_address, star_rating, number_of_rooms, manager, chain_name)
 VALUES
     -- Ottawa
     ('123 Curtis Ave, Ottawa', '6135550501', 'fourseasonsottawa1@fourseasons.com', 4, 22, 123456789, 'Four Seasons'),
@@ -83,8 +199,13 @@ VALUES
     ('505 Niagara Rd, Halifax', '9025550501', 'fourseasonshalifax1@fourseasons.com', 5, 23, 246810975, 'Four Seasons');
 
 
+
+
+
+
+
 -- Insert data for Mariott hotel rooms
-INSERT INTO HotelRoom (address, room_number, amenities, price, capacity, problems_and_damages, view_type, extension_capabilities)
+INSERT INTO dbproj.HotelRoom (address, room_number, amenities, price, capacity, problems_and_damages, view_type, extension_capabilities)
 VALUES
     -- Ottawa Mariott
     ('123 Malthouse St, Ottawa', 101, 'Free Wi-Fi, TV, Mini Fridge', 150.00, 'Single', NULL, 'Mountain', 'Possible'),
@@ -101,7 +222,7 @@ VALUES
     ('505 Denton Rd, Halifax', 205, 'Free Wi-Fi, TV, Mini Fridge', 320.00, 'Suite', NULL, 'Sea', 'Possible');
 
 -- Insert data for Hilton hotel rooms
-INSERT INTO HotelRoom (address, room_number, amenities, price, capacity, problems_and_damages, view_type, extension_capabilities)
+INSERT INTO dbproj.HotelRoom (address, room_number, amenities, price, capacity, problems_and_damages, view_type, extension_capabilities)
 VALUES
     -- Ottawa Hilton
     ('123 Southedge Ave, Ottawa', 201, 'Free Wi-Fi, TV, Mini Fridge', 120.00, 'Single', NULL, 'Mountain', 'Possible'),
@@ -118,15 +239,15 @@ VALUES
     ('505 Lawn Rd, Halifax', 305, 'Free Wi-Fi, TV, Mini Fridge', 310.00, 'Suite', NULL, 'Sea', 'Possible');
 
 -- Insert data for Les Suites hotel rooms
-INSERT INTO HotelRoom (address, room_number, amenities, price, capacity, problems_and_damages, view_type, extension_capabilities)
+INSERT INTO dbproj.HotelRoom (address, room_number, amenities, price, capacity, problems_and_damages, view_type, extension_capabilities)
 VALUES
     -- Ottawa Les Suites
-    ('123 haywood Ave, Ottawa', 301, 'Free Wi-Fi, TV, Mini Fridge', 110.00, 'Single', NULL, 'Mountain', 'Possible'),
-    ('123 haywood Ave, Ottawa', 302, 'Free Wi-Fi, TV, Mini Fridge', 160.00, 'Double', NULL, 'Sea', 'Possible'),
-    ('123 haywood Ave, Ottawa', 303, 'Free Wi-Fi, TV, Mini Fridge', 200.00, 'Double', NULL, 'Mountain', 'Possible'),
-    ('123 haywood Ave, Ottawa', 304, 'Free Wi-Fi, TV, Mini Fridge', 240.00, 'Triple', NULL, 'Sea', 'Possible'),
-    ('123 haywood Ave, Ottawa', 305, 'Free Wi-Fi, TV, Mini Fridge', 280.00, 'Quadruple', NULL, 'Mountain', 'Possible'),
-    ('123 haywood Ave, Ottawa', 306, 'Free Wi-Fi, TV, Mini Fridge', 330.00, 'Suite', NULL, 'Sea', 'Possible'),
+    ('123 Haywood Ave, Ottawa', 301, 'Free Wi-Fi, TV, Mini Fridge', 110.00, 'Single', NULL, 'Mountain', 'Possible'),
+    ('123 Haywood Ave, Ottawa', 302, 'Free Wi-Fi, TV, Mini Fridge', 160.00, 'Double', NULL, 'Sea', 'Possible'),
+    ('123 Haywood Ave, Ottawa', 303, 'Free Wi-Fi, TV, Mini Fridge', 200.00, 'Double', NULL, 'Mountain', 'Possible'),
+    ('123 Haywood Ave, Ottawa', 304, 'Free Wi-Fi, TV, Mini Fridge', 240.00, 'Triple', NULL, 'Sea', 'Possible'),
+    ('123 Haywood Ave, Ottawa', 305, 'Free Wi-Fi, TV, Mini Fridge', 280.00, 'Quadruple', NULL, 'Mountain', 'Possible'),
+    ('123 Haywood Ave, Ottawa', 306, 'Free Wi-Fi, TV, Mini Fridge', 330.00, 'Suite', NULL, 'Sea', 'Possible'),
     -- Other Les Suites locations
     ('101 Spinny Rd, Toronto', 401, 'Free Wi-Fi, TV, Mini Fridge', 130.00, 'Single', NULL, 'Sea', 'Possible'),
     ('202 Anthony Ave, Vancouver', 402, 'Free Wi-Fi, TV, Mini Fridge', 190.00, 'Double', NULL, 'Mountain', 'Possible'),
@@ -135,7 +256,7 @@ VALUES
     ('505 Witham Rd, Halifax', 405, 'Free Wi-Fi, TV, Mini Fridge', 300.00, 'Suite', NULL, 'Sea', 'Possible');
 
 -- Insert data for Best Western hotel rooms
-INSERT INTO HotelRoom (address, room_number, amenities, price, capacity, problems_and_damages, view_type, extension_capabilities)
+INSERT INTO dbproj.HotelRoom (address, room_number, amenities, price, capacity, problems_and_damages, view_type, extension_capabilities)
 VALUES
     -- Ottawa Best Western
     ('123 Brambling Ave, Ottawa', 401, 'Free Wi-Fi, TV, Mini Fridge', 100.00, 'Single', NULL, 'Mountain', 'Possible'),
@@ -152,7 +273,7 @@ VALUES
     ('505 Glebe Rd, Halifax', 505, 'Free Wi-Fi, TV, Mini Fridge', 280.00, 'Suite', NULL, 'Sea', 'Possible');
 
 -- Insert data for Four Seasons hotel rooms
-INSERT INTO HotelRoom (address, room_number, amenities, price, capacity, problems_and_damages, view_type, extension_capabilities)
+INSERT INTO dbproj.HotelRoom (address, room_number, amenities, price, capacity, problems_and_damages, view_type, extension_capabilities)
 VALUES
     -- Ottawa Four Seasons
     ('123 Curtis Ave, Ottawa', 501, 'Free Wi-Fi, TV, Mini Fridge', 200.00, 'Single', NULL, 'Mountain', 'Possible'),
