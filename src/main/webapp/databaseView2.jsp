@@ -130,6 +130,22 @@
             flex-direction: column;
             align-items: center;
         }
+        .table-header {
+            font-size: 22px;
+            padding: 10px;
+            text-align: center;
+            border: 1px solid black; /* Adjust as needed */
+        }
+        .table-data {
+            font-family: Gilroy-Light, sans-serif;
+            font-size: 18px; /* 16px -> default font size */
+            padding: 10px;
+            text-align: center;
+            border: 1px solid black;
+        }
+        .table {
+            border-collapse: collapse; /* Collapse the borders */
+        }
     </style>
 </head>
 
@@ -146,9 +162,60 @@
     <a href="databaseView2.jsp">View 2</a>
     <a href="employeeLogin.jsp">Employee Login</a>
 </nav>
-<main>
-    <h2>View 2</h2>
-    <p>This is a sample HTML page. You can replace this content with your own.</p>
+
+<%@ page import="java.util.List" %>
+
+<%@ page import="com.DatabaseProjectWebsite.Tables.View2" %>
+<%@ page import="java.util.ArrayList" %>
+<%
+
+    List<View2> viewItems = null;
+    try {
+        viewItems = View2.getData();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+%>
+
+<main style="padding-bottom: 50px">
+     <div class="container">
+            <div class="row" id="row">
+                <div class="col-md-12">
+                    <div class="card" id="card-container">
+                        <div class="card-body" id="card">
+                            <% if (viewItems == null || viewItems.size() == 0) { %>
+                            <h1 style="margin-top: 5rem;">No Data found.</h1>
+                            <% } else { %>
+
+                            <h2>Available Rooms Per City</h2>
+
+                            <!-- First table -->
+                            <div>
+                                <table class="table center-table">
+                                    <thead>
+                                    <tr>
+                                        <th class="table-header">City</th>
+                                        <th class="table-header">Address</th>
+                                        <th class="table-header">Number of Rooms Available</th>
+                                    </tr>
+                                    </thead>
+                                    <%
+                                        for (View2 v : viewItems) { %>
+                                    <tr>
+                                        <td class="table-data"><%= v.getCity() %></td>
+                                        <td class="table-data"><%= v.getAddress() %></td>
+                                        <td class="table-data"><%= v.getNumberOfAvailableRooms() %></td>
+                                    </tr>
+                                    <% } %>
+                                </table>
+                            </div>
+                        <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 </main>
 <footer style=background-color:#0b1021;>
     <a href="adminLogin.jsp" style="color: white;">Admin? Login here</a>

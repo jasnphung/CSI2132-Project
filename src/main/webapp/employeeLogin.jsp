@@ -140,6 +140,8 @@
     <a href="databaseView2.jsp">View 2</a>
     <a href="employeeLogin.jsp">Employee Login</a>
 </nav>
+
+
 <main>
     <div class="foreground-div">
         <h2>Hotel Employee Login</h2>
@@ -157,14 +159,7 @@
 <footer style=background-color:#0b1021;>
     <a href="adminLogin.jsp" style="color: white;">Admin? Login here</a>
 </footer>
-<!-- TODO: Validate login -->
-<script>
-    // Check if the SSN/SIN and last name matches an employee in the database
-    document.querySelector('form').addEventListener('submit', function(event) {
-        const SSNSIN = document.querySelector('#SSNSIN').value;
-        const lastName = document.querySelector('#lastName').value;
 
-    });
-</script>
-</body>
+
+</body></body>
 </html>

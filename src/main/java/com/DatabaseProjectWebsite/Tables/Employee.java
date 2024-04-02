@@ -26,7 +26,7 @@ public class Employee {
     public String getMiddleName() { return middleName; }
     public String getLastName() { return lastName; }
     public String getAddress() { return address; }
-    public long getSin_ssn() { return sin_ssn; }
+    public long getSinSsn() { return sin_ssn; }
     public String getJobPosition() { return jobPosition; }
 
     public void setFirstName(String fn) { firstName = fn; }
@@ -46,6 +46,79 @@ public class Employee {
                 + "<li>" + sin_ssn + "</li>"
                 + "<li>" + jobPosition + "</li>"
             + "</ul>";
+    }
+
+
+    public List<HotelRoom> getAvailableRooms() throws Exception {
+        String sql = "SELECT * FROM dbproj.hotelroom where address=? AND status=?;";
+        DatabaseConnection db = new DatabaseConnection();
+        List<HotelRoom> availableRooms = new ArrayList<>();
+
+        try (Connection con = db.getConnection()) {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            // Set parameters for the prepared statement
+            stmt.setString(1, getAddress());
+            stmt.setString(2, "available");
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                HotelRoom room = new HotelRoom(
+                        rs.getString("address"),
+                        rs.getInt("room_number"),
+                        rs.getString("amenities"),
+                        rs.getInt("price"),
+                        rs.getString("capacity"),
+                        rs.getString("problems_and_damages"),
+                        rs.getString("view_type"),
+                        rs.getString("extension_capabilities"),
+                        rs.getString("status")
+                );
+                availableRooms.add(room);
+            }
+
+            rs.close();
+            stmt.close();
+            con.close();
+            db.close();
+
+            return availableRooms;
+        } catch (Exception e) {
+            throw new Exception("err: " + e.getMessage());
+        }
+    }
+
+    public static Employee login(String lastName, int sin_ssn) {
+        String sql = "SELECT * FROM dbproj.employee where last_name=? AND sin_ssn_number=?;";
+        DatabaseConnection db = new DatabaseConnection();
+        List<Employee> employees = new ArrayList<Employee>();
+
+        try (Connection con = db.getConnection()) {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, lastName);
+            stmt.setInt(2, sin_ssn);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return new Employee(
+                        rs.getString("first_name"),
+                        rs.getString("middle_name"),
+                        rs.getString("last_name"),
+                        rs.getString("address"),
+                        rs.getLong("sin_ssn_number"),
+                        rs.getString("job_position")
+                );
+
+            }
+
+            rs.close();
+            stmt.close();
+            con.close();
+            db.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static List<Employee> getAllEmployees() throws Exception {
@@ -95,7 +168,7 @@ public class Employee {
             stmt.setString(2, employee.getMiddleName());
             stmt.setString(3, employee.getLastName());
             stmt.setString(4, employee.getAddress());
-            stmt.setLong(5, employee.getSin_ssn());
+            stmt.setLong(5, employee.getSinSsn());
             stmt.setString(6, employee.getJobPosition());
 
             stmt.executeUpdate();

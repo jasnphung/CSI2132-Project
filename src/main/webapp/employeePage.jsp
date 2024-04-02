@@ -130,8 +130,25 @@
             flex-direction: column;
             align-items: center;
         }
+        .table-header {
+            font-size: 22px;
+            padding: 10px;
+            text-align: center;
+            border: 1px solid black; /* Adjust as needed */
+        }
+        .table-data {
+            font-family: Gilroy-Light, sans-serif;
+            font-size: 18px; /* 16px -> default font size */
+            padding: 10px;
+            text-align: center;
+            border: 1px solid black;
+        }
+        .table {
+            border-collapse: collapse; /* Collapse the borders */
+        }
     </style>
 </head>
+
 
 <body>
 <header>
@@ -146,10 +163,74 @@
     <a href="databaseView2.jsp">View 2</a>
     <a href="employeeLogin.jsp">Employee Login</a>
 </nav>
-<main>
-    <h2>View 1</h2>
-    <p>This is a sample HTML page. You can replace this content with your own.</p>
+<%@ page import="java.util.List" %>
+
+<%@ page import="com.DatabaseProjectWebsite.Tables.Employee" %>
+<%@ page import="com.DatabaseProjectWebsite.Tables.HotelRoom" %>
+<%@ page import="java.util.ArrayList" %>
+<%
+    int ssnSin = Integer.parseInt(request.getParameter("SSNSIN"));
+    String lastName = request.getParameter("lastName");
+    List<HotelRoom> available_rooms = null;
+    try {
+        Employee employee = Employee.login(lastName, ssnSin);
+        // get the users information, create an Employee instance, get all available rooms
+        available_rooms = employee.getAvailableRooms();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+%>
+
+<main style="padding-bottom: 50px">
+     <div class="container">
+                 <div class="row" id="row">
+                     <div class="col-md-12">
+                         <div class="card" id="card-container">
+                             <div class="card-body" id="card">
+                                <% if (available_rooms == null || available_rooms.size() == 0) { %>
+                                 <h1 style="margin-top: 5rem;">No rooms currently available.</h1>
+                                 <% } else { %>
+
+                                     <h2>Available Rooms</h2>
+                                    <!-- First table -->
+                                    <div>
+                                        <table class="table center-table">
+                                            <thead>
+                                                <tr>
+                                                    <th class="table-header">Room number</th>
+                                                    <th class="table-header">price</th>
+                                                    <th class="table-header">capacity</th>
+                                                    <th class="table-header">amenities</th>
+                                                    <th class="table-header">damages</th>
+                                                    <th class="table-header">view</th>
+                                                    <th class="table-header">extentibility</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% for (HotelRoom room : available_rooms) { %>
+                                                <tr>
+                                                    <td class="table-data"><%= room.getRoomNumber() %></td>
+                                                    <td class="table-data"><%= room.getPrice() %></td>
+                                                    <td class="table-data"><%= room.getCapacity() %></td>
+                                                    <td class="table-data"><%= room.getAmenities() %></td>
+                                                    <td class="table-data"><%= room.getProblemsAndDamages() %></td>
+                                                    <td class="table-data"><%= room.getViewType() %></td>
+                                                    <td class="table-data"><%= room.getExtensionCapabilities() %></td>
+                                                </tr>
+                                                <% } %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                 <% } %>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+     </div>
 </main>
+
+
 <footer style=background-color:#0b1021;>
     <a href="adminLogin.jsp" style="color: white;">Admin? Login here</a>
 </footer>
