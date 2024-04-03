@@ -162,9 +162,9 @@
                         <label for="area" class="label-size">Area:</label>
                         <select id="area" name="location" class="input-spacing">
                             <option value="" disabled selected>Select city</option>
-                            <option value="london">London</option>
-                            <option value="paris">Paris</option>
-                            <option value="newyork">New York</option>
+                            <option value="Ottawa">Ottawa</option>
+                            <option value="Toronto">Toronto</option>
+                            <option value="Montreal">Montreal</option>
                         </select>
                     </div>
 

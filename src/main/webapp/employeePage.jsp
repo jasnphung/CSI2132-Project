@@ -184,49 +184,52 @@
 
 <main style="padding-bottom: 50px">
      <div class="container">
-                 <div class="row" id="row">
-                     <div class="col-md-12">
-                         <div class="card" id="card-container">
-                             <div class="card-body" id="card">
-                                <% if (available_rooms == null || available_rooms.size() == 0) { %>
-                                 <h1 style="margin-top: 5rem;">No rooms currently available.</h1>
-                                 <% } else { %>
+         <div class="row" id="row">
+             <div class="col-md-12">
+                 <div class="card" id="card-container">
+                     <div class="card-body" id="card">
+                        <% if (available_rooms == null || available_rooms.size() == 0) { %>
+                         <h1 style="margin-top: 5rem;">No rooms currently available.</h1>
+                         <% } else { %>
 
-                                     <h2>Available Rooms</h2>
-                                    <!-- First table -->
-                                    <div>
-                                        <table class="table center-table">
-                                            <thead>
-                                                <tr>
-                                                    <th class="table-header">Room number</th>
-                                                    <th class="table-header">price</th>
-                                                    <th class="table-header">capacity</th>
-                                                    <th class="table-header">amenities</th>
-                                                    <th class="table-header">damages</th>
-                                                    <th class="table-header">view</th>
-                                                    <th class="table-header">extentibility</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <% for (HotelRoom room : available_rooms) { %>
-                                                <tr>
-                                                    <td class="table-data"><%= room.getRoomNumber() %></td>
-                                                    <td class="table-data"><%= room.getPrice() %></td>
-                                                    <td class="table-data"><%= room.getCapacity() %></td>
-                                                    <td class="table-data"><%= room.getAmenities() %></td>
-                                                    <td class="table-data"><%= room.getProblemsAndDamages() %></td>
-                                                    <td class="table-data"><%= room.getViewType() %></td>
-                                                    <td class="table-data"><%= room.getExtensionCapabilities() %></td>
-                                                </tr>
-                                                <% } %>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                 <% } %>
-                             </div>
-                         </div>
+                             <h2>Available Rooms</h2>
+                            <!-- First table -->
+                            <div>
+                                <table class="table center-table">
+                                    <thead>
+                                        <tr>
+                                            <th class="table-header">Room number</th>
+                                            <th class="table-header">price</th>
+                                            <th class="table-header">capacity</th>
+                                            <th class="table-header">amenities</th>
+                                            <th class="table-header">damages</th>
+                                            <th class="table-header">view</th>
+                                            <th class="table-header">extensibility</th>
+                                            <th class="table-header">book</th>
+                                            <th class="table-header">rent</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% for (HotelRoom room : available_rooms) { %>
+                                        <form action="#" method="POST">
+                                        <tr>
+                                            <td class="table-data"><%= room.getRoomNumber() %></td>
+                                            <td class="table-data"><%= room.getPrice() %></td>
+                                            <td class="table-data"><%= room.getCapacity() %></td>
+                                            <td class="table-data"><%= room.getAmenities() %></td>
+                                            <td class="table-data"><%= room.getProblemsAndDamages() %></td>
+                                            <td class="table-data"><%= room.getViewType() %></td>
+                                            <td class="table-data"><%= room.getExtensionCapabilities() %></td>
+                                        </tr>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                         <% } %>
                      </div>
                  </div>
+             </div>
+         </div>
      </div>
 </main>
 

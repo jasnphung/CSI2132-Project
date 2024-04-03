@@ -153,6 +153,22 @@
             flex-direction: column;
             align-items: center;
         }
+        .table-header {
+            font-size: 22px;
+            padding: 10px;
+            text-align: center;
+            border: 1px solid black; /* Adjust as needed */
+        }
+        .table-data {
+            font-family: Gilroy-Light, sans-serif;
+            font-size: 18px; /* 16px -> default font size */
+            padding: 10px;
+            text-align: center;
+            border: 1px solid black;
+        }
+        .table {
+            border-collapse: collapse; /* Collapse the borders */
+        }
     </style>
 </head>
 
@@ -169,34 +185,79 @@
     <a href="databaseView2.jsp">View 2</a>
     <a href="employeeLogin.jsp">Employee Login</a>
 </nav>
-<main>
-    <h2>Search Results</h2>
 
-    <%
-        // Retrieve form data
-        String area = request.getParameter("location");
-        String numberOfGuests = request.getParameter("numberOfGuests");
-        String checkInDate = request.getParameter("checkInDate");
-        String checkOutDate = request.getParameter("checkOutDate");
-        String hotelChain = request.getParameter("hotelChain");
-        String roomType = request.getParameter("roomType");
-        String numberOfRooms = request.getParameter("numberOfRooms");
-        String priceOfRooms = request.getParameter("priceOfRooms");
+<%@ page import="java.util.List" %>
+<%@ page import="com.DatabaseProjectWebsite.Tables.Hotel" %>
+<%@ page import="com.DatabaseProjectWebsite.Tables.HotelRoom" %>
+<%@ page import="com.DatabaseProjectWebsite.Tables.SearchResult" %>
+<%@ page import="java.util.ArrayList" %>
+<%
+    String area = request.getParameter("location");
+    int numberOfGuests = Integer.parseInt(request.getParameter("numberOfGuests"));
+    String checkInDate = request.getParameter("checkInDate");
+    String checkOutDate = request.getParameter("checkOutDate");
+    String hotelChain = request.getParameter("hotelChain");
+    String roomType = request.getParameter("roomType");
+    int numberOfRooms = Integer.parseInt(request.getParameter("numberOfRooms"));
+    float priceOfRooms = Float.parseFloat(request.getParameter("priceOfRooms"));
 
-        // TODO: Use the form data to perform a search in your database
-        // For now, just print the form data to verify that it's being retrieved correctly
-    %>
+    SearchResult result = new SearchResult(area, numberOfGuests, hotelChain, roomType, numberOfRooms, priceOfRooms);
+    List<Hotel> hotels = null;
+    List<HotelRoom> rooms = new ArrayList<>();
+    try {
+        hotels = result.getSearchResults();
+        for (Hotel h : hotels ) {
+            rooms.addAll(result.getSearchedRooms(h));
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
 
-    <!-- Test output of form data -->
-    <p>Area: <%= area %></p>
-    <p>Number of guests: <%= numberOfGuests %></p>
-    <p>Check-in date: <%= checkInDate %></p>
-    <p>Check-out date: <%= checkOutDate %></p>
-    <p>Hotel chain: <%= hotelChain %></p>
-    <p>Room type: <%= roomType %></p>
-    <p>Number of rooms: <%= numberOfRooms %></p>
-    <p>Price of rooms: <%= priceOfRooms %></p>
+%>
+
+<main style="padding-bottom: 50px">
+     <div class="container">
+         <div class="row" id="row">
+             <div class="col-md-12">
+                 <div class="card" id="card-container">
+                     <div class="card-body" id="card">
+                        <% if (rooms == null || rooms.size() == 0) { %>
+                         <h1 style="margin-top: 5rem;">No rooms currently available.</h1>
+                         <% } else { %>
+                            <h2>Available Rooms</h2>
+                            <div>
+                                <table class="table center-table">
+                                    <thead>
+                                        <tr>
+                                            <th class="table-header">Address</th>
+                                            <th class="table-header">Amenities</th>
+                                            <th class="table-header">Problems</th> 
+                                            <th class="table-header">View</th>
+                                            <th class="table-header">Extendibility</th>
+                                            <th class="table-header">Price</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <% for (HotelRoom room : rooms) { %>
+                                        <tr>
+                                            <td class="table-data"><%= room.getAddress() %></td>
+                                            <td class="table-data"><%= room.getAmenities() %></td>
+                                            <td class="table-data"><%= room.getProblemsAndDamages() %></td>
+                                            <td class="table-data"><%= room.getViewType() %></td>
+                                            <td class="table-data"><%= room.getExtensionCapabilities() %></td>
+                                            <td class="table-data"><%= room.getPrice() %></td> </tr>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                         <% } %>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
 </main>
+
+
 <footer style=background-color:#0b1021;>
     <a href="adminLogin.jsp" style="color: white;">Admin? Login here</a>
 </footer>

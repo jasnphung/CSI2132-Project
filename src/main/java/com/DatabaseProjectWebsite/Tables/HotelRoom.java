@@ -9,14 +9,14 @@ public class HotelRoom {
     private String address;
     private int roomNumber;
     private String amenities;
-    private int price;
+    private float price;
     private String capacity;
     private String problemsAndDamages;
     private String viewType;
     private String extensionCapabilities;
     private String status;
 
-    public HotelRoom(String ad, int rn, String am, int pr, String ca, String pad, String vt, String ec, String st) {
+    public HotelRoom(String ad, int rn, String am, float pr, String ca, String pad, String vt, String ec, String st) {
         address = ad;
         roomNumber = rn;
         amenities = am;
@@ -31,7 +31,7 @@ public class HotelRoom {
     public String getAddress() { return address; }
     public int getRoomNumber() { return roomNumber; }
     public String getAmenities() { return amenities; }
-    public int getPrice() { return price; }
+    public float getPrice() { return price; }
     public String getCapacity() { return capacity; }
     public String getProblemsAndDamages() { return problemsAndDamages; }
     public String getViewType() { return viewType; }
@@ -112,7 +112,7 @@ public class HotelRoom {
             stmt.setString(1, hotelRoom.getAddress());
             stmt.setInt(2, hotelRoom.getRoomNumber());
             stmt.setString(3, hotelRoom.getAmenities());
-            stmt.setInt(4, hotelRoom.getPrice());
+            stmt.setFloat(4, hotelRoom.getPrice());
             stmt.setString(5, hotelRoom.getCapacity());
             stmt.setString(6, hotelRoom.getProblemsAndDamages());
             stmt.setString(7, hotelRoom.getViewType());
@@ -133,6 +133,69 @@ public class HotelRoom {
             }
         }
 
+        return message;
+    }
+
+
+    public String bookRoom() throws SQLException {
+        Connection con = null;
+        String message = "";
+
+        String sql = "UPDATE dbproj.hotelroom SET status ='booked' WHERE address = ? AND room_number = ?";
+
+        DatabaseConnection db = new DatabaseConnection();
+
+        try {
+            con = db.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setString(1, this.getAddress());
+            stmt.setInt(2, this.getRoomNumber());
+
+            stmt.executeUpdate();
+
+            stmt.close();
+        } catch (Exception e) {
+            message = "Could not book hotel room: " + e.getMessage();
+        } finally {
+            if (con != null) {
+                con.close();
+            }
+            if (message.equals("")) {
+                message = "Hotel room booked.";
+            }
+        }
+        return message;
+    }
+
+    public String rentRoom() throws SQLException {
+        Connection con = null;
+        String message = "";
+
+        String sql = "UPDATE dbproj.hotelroom SET status ='rented' WHERE address = ? AND room_number = ?";
+
+        DatabaseConnection db = new DatabaseConnection();
+
+        try {
+            con = db.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setString(1, this.getAddress());
+            stmt.setInt(2, this.getRoomNumber());
+
+            stmt.executeUpdate();
+
+            stmt.close();
+        } catch (Exception e) {
+            message = "Could not rent hotel room: " + e.getMessage();
+        } finally {
+            if (con != null) {
+                con.close();
+            }
+            if (message.equals("")) {
+                message = "Hotel room rented.";
+            }
+        }
         return message;
     }
 }
