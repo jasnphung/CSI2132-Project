@@ -84,7 +84,13 @@
             border-radius: 20px;
         }
         .foreground-div {
+            background-color: rgba(0, 0, 0, 0.55);
+            /* padding: 10px; */
+            border-radius: 20px;
+            height: 100%;
+            width: 100%;
             text-align: center;
+            /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -124,6 +130,22 @@
             flex-direction: column;
             align-items: center;
         }
+        .table-header {
+            font-size: 22px;
+            padding: 10px;
+            text-align: center;
+            border: 1px solid black; /* Adjust as needed */
+        }
+        .table-data {
+            font-family: Gilroy-Light, sans-serif;
+            font-size: 18px; /* 16px -> default font size */
+            padding: 10px;
+            text-align: center;
+            border: 1px solid black;
+        }
+        .table {
+            border-collapse: collapse; /* Collapse the borders */
+        }
     </style>
 </head>
 
@@ -142,89 +164,37 @@
 </nav>
 
 <%@ page import="java.util.List" %>
-<%@ page import="com.DatabaseProjectWebsite.Tables.Employee" %>
+
+<%@ page import="com.DatabaseProjectWebsite.Tables.View1" %>
 <%@ page import="java.util.ArrayList" %>
 <%
-    List<Employee> employees = null;
+
+    List<View1> viewItems = null;
     try {
-        employees = Employee.getAllEmployees();
+        viewItems = View1.getData();
     } catch (Exception e) {
         e.printStackTrace();
     }
-
-    String SSNSIN = request.getParameter("SSNSIN");
-    String lastName = request.getParameter("lastName");
-    boolean loginSuccessful = false;
-
-    if (SSNSIN != null && lastName != null) {
-        for (Employee employee : employees) {
-            if ((employee.getSinSsn() == (Long.parseLong(SSNSIN))) && employee.getLastName().equals(lastName)) {
-                loginSuccessful = true;
-                break;
-            }
-        }
-    }
-
-    System.out.println("SSNSIN: " + SSNSIN); // Debug line
-    System.out.println("lastName: " + lastName); // Debug line
-    System.out.println("loginSuccessful: " + loginSuccessful); // Debug line
 %>
 
-<main>
-    <div class="foreground-div">
-        <h2>Hotel Employee Login</h2>
-        <form action="<%= loginSuccessful ? "employeePage.jsp" : "employeeLogin.jsp" %>" method="post">
-            <label for="SSNSIN" class="label-size">SSN/SIN:</label>
-            <input type="number" name="SSNSIN" id="SSNSIN" class="input-spacing" required>
-            <br>
-            <label for="lastName" class="label-size">Last name:</label>
-            <input type="password" name="lastName" id="lastName" class="input-spacing" required>
-            <br>
-            <input type="hidden" id="loginSuccessful" value="<%= loginSuccessful ? "true" : "false" %>">
-            <input type="submit" value="Login" class="search-button">
-        </form>
+<main style="padding-bottom: 50px">
+    <div class="container">
+        <div class="row" id="row">
+            <div class="col-md-12">
+                <div class="card" id="card-container">
+                    <div class="card-body" id="card">
+                        <h2 class="card-title">Book Room</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
 </main>
-
-<script>
-    document.querySelector('form').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent the form from submitting immediately
-
-        let username = document.querySelector('#SSNSIN').value;
-        let password = document.querySelector('#lastName').value;
-        let loginSuccessful = false;
-
-        let employees = [
-            <% for (Employee employee : employees) { %>
-            {sinSsn: '<%= employee.getSinSsn() %>', lastName: '<%= employee.getLastName() %>'},
-            <% } %>
-        ];
-
-        for (let i = 0; i < employees.length; i++) {
-            if (username === employees[i].sinSsn && password === employees[i].lastName) {
-                loginSuccessful = true;
-                break;
-            }
-        }
-
-        // Test employee
-        if (username == '123456789' && password == 'password') {
-            loginSuccessful = true;
-        }
-
-        if (loginSuccessful) {
-            this.action = "employeePage.jsp"; // Set the form's action attribute to "employeePage.jsp"
-            this.submit(); // Submit the form
-        } else {
-            alert('Invalid SSN/SIN or Last Name');
-        }
-    })
-</script>
 
 <footer style=background-color:#0b1021;>
     <a href="adminLogin.jsp" style="color: white;">Admin? Login here</a>
 </footer>
+</body>
 
-
-</body></body>
 </html>

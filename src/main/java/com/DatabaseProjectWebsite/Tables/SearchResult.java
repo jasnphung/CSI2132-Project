@@ -59,7 +59,8 @@ public class SearchResult {
             PreparedStatement stmt = con.prepareStatement(sql);
 
             stmt.setString(1, "%"+this.city+"%");
-            stmt.setString(2, formatChainName(this.chain));
+            // stmt.setString(2, formatChainName(this.chain));
+            stmt.setString(2, this.chain);
             // stmt.setInt(4, this.rating);
             stmt.setInt(3, this.numberofRooms);
             ResultSet rs = stmt.executeQuery();
@@ -126,6 +127,40 @@ public class SearchResult {
         } catch (Exception e) {
             throw new Exception("Could not retrieve hotels: " + e.getMessage());
         } 
+    }
+
+    public static List<HotelRoom> getAllHotelRooms() throws Exception {
+        String sql = "SELECT * FROM dbproj.HotelRoom WHERE status='available'";
+        DatabaseConnection db = new DatabaseConnection();
+        List<HotelRoom> rooms = new ArrayList<HotelRoom>();
+
+        try (Connection con = db.getConnection()) {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                HotelRoom room = new HotelRoom(
+                        ((ResultSet) rs).getString("address"),
+                        rs.getInt("room_number"),
+                        rs.getString("amenities"),
+                        rs.getInt("price"),
+                        rs.getString("capacity"),
+                        rs.getString("problems_and_damages"),
+                        rs.getString("view_type"),
+                        rs.getString("extension_capabilities"),
+                        rs.getString("status")
+                );
+                rooms.add(room);
+            }
+            rs.close();
+            stmt.close();
+            con.close();
+            db.close();
+
+            return rooms;
+        } catch (Exception e) {
+            throw new Exception("Could not retrieve hotel rooms: " + e.getMessage());
+        }
     }
 
     private static String formatChainName(String name) {

@@ -220,9 +220,8 @@
                             <h1 style="margin-top: 5rem;">No Hotel Chains found!</h1>
                             <% } else { %>
 
-                            <h2>Hotel chains</h2>
-
                             <!-- First table -->
+                            <h2>Hotel chains</h2>
                             <div>
                                 <table class="table center-table">
                                     <thead>
@@ -247,9 +246,11 @@
                                 </table>
                             </div>
 
-                            <h2 style="margin-top: 50px;">Hotels</h2>
+                            <h3>Add a hotel chain</h3>
+
 
                             <!-- Second table -->
+                            <h2 style="margin-top: 50px;">Hotels</h2>
                             <div>
                                 <table class="table center-table">
                                     <thead>
@@ -278,9 +279,10 @@
                                 </table>
                             </div>
 
-                            <h2 style="margin-top: 50px;">Hotel rooms</h2>
+
 
                             <!-- Third table -->
+                            <h2 style="margin-top: 50px;">Hotel rooms</h2>
                             <div>
                                 <table class="table center-table">
                                     <thead>
@@ -303,18 +305,40 @@
                                         <td class="table-data"><%= r.getRoomNumber() %></td>
                                         <td class="table-data"><%= r.getAmenities() %></td>
                                         <td class="table-data"><%= r.getPrice() %></td>
-                                        <td class="table-data"><%= r.getCapacity() %></td>
-                                        <td class="table-data"><%= r.getProblemsAndDamages() %></td>
-                                        <td class="table-data"><%= r.getViewType() %></td>
+                                        <td class="table-data">
+                                            <%= room.getCapacity() %>
+                                            <%
+                                                switch(room.getCapacity()) {
+                                                    case "Single":
+                                                        out.print(" (1)");
+                                                        break;
+                                                    case "Double":
+                                                        out.print(" (2)");
+                                                        break;
+                                                    case "Triple":
+                                                        out.print(" (3)");
+                                                        break;
+                                                    case "Quadruple":
+                                                        out.print(" (4)");
+                                                        break;
+                                                    case "Suite":
+                                                        out.print(" (5+)");
+                                                        break;
+                                                }
+                                            %>
+                                        </td>
+                                        <td class="table-data"><%= r.getProblemsAndDamages() == null ? "None" : r.getProblemsAndDamages() %></td>
+                                        <td class="table-data" style="color:<%= r.getViewType().equalsIgnoreCase("Sea") ? "blue" : (r.getViewType().equalsIgnoreCase("Mountain") ? "green" : "black") %>;"><%= r.getViewType() %></td>
                                         <td class="table-data"><%= r.getExtensionCapabilities() %></td>
                                         <td class="table-data" style="color:<%= r.getStatus().equalsIgnoreCase("available") ? "green" : (r.getStatus().equalsIgnoreCase("booked") ? "yellow" : "red") %>;"><%= r.getStatus() %></td>                                    </tr>
                                     <% } %>
                                 </table>
                             </div>
 
-                            <h2 style="margin-top: 50px;">Employees</h2>
+
 
                             <!-- Fourth table -->
+                            <h2 style="margin-top: 50px;">Employees</h2>
                             <div>
                                 <table class="table center-table">
                                     <thead>
@@ -334,16 +358,17 @@
                                         <td class="table-data"><%= e.getMiddleName() %></td>
                                         <td class="table-data"><%= e.getLastName() %></td>
                                         <td class="table-data"><%= e.getAddress() %></td>
-                                        <td class="table-data"><%= e.getSin_ssn() %></td>
+                                        <td class="table-data"><%= e.getSinSsn() %></td>
                                         <td class="table-data"><%= e.getJobPosition() %></td>
                                     </tr>
                                     <% } %>
                                 </table>
                             </div>
 
-                            <h2 style="margin-top: 50px;">Customers</h2>
+
 
                             <!-- Fifth table -->
+                            <h2 style="margin-top: 50px;">Customers</h2>
                             <div>
                                 <table class="table center-table">
                                     <thead>

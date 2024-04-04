@@ -110,6 +110,7 @@
             height: 60px;
             font-family: Gilroy-ExtraBold, sans-serif;
             box-sizing: border-box;
+            border: 1px solid #000000
         }
         .search-button {
             font-size: 20px;
@@ -119,6 +120,19 @@
             border-radius: 5px;
             font-family: Gilroy-ExtraBold, sans-serif;
             box-sizing: border-box;
+            border: 1px solid #000000
+        }
+        .view-all-button {
+            font-size: 20px;
+            width: 300px;
+            height: 40px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-family: Gilroy-ExtraBold, sans-serif;
+            box-sizing: border-box;
+            background-color: #0b1021;
+            color: #ffffff;
+            border: 1px solid #ffffff
         }
         .search-heading {
             margin: 20px;
@@ -151,10 +165,19 @@
     <a href="databaseView2.jsp">View 2</a>
     <a href="employeeLogin.jsp">Employee Login</a>
 </nav>
+
+<%@ page import="java.util.List" %>
+<%@ page import="com.DatabaseProjectWebsite.Index" %>
+
 <main class="search">
     <div class="background-div">
         <div class="foreground-div">
             <h2 class="search-heading">Search for available hotels</h2>
+
+            <a href="allHotelRoomsView.jsp">
+                <button type="button" class="view-all-button">Or, view all available rooms</button>
+            </a>
+
             <form action="searchResult.jsp" method="post">
                 <div class="search-items">
                     <div class="search-individual-items">
@@ -162,9 +185,14 @@
                         <label for="area" class="label-size">Area:</label>
                         <select id="area" name="location" class="input-spacing">
                             <option value="" disabled selected>Select city</option>
-                            <option value="Ottawa">Ottawa</option>
-                            <option value="Toronto">Toronto</option>
-                            <option value="Montreal">Montreal</option>
+                            <%
+                                List<String> cities = Index.getCities();
+                                for (String city : cities) {
+                            %>
+                            <option value="<%= city %>"><%= city %></option>
+                            <%
+                                }
+                            %>
                         </select>
                     </div>
 
@@ -187,11 +215,14 @@
                         <label for="hotelChain" class="label-size">Hotel chain:</label>
                         <select id="hotelChain" name="hotelChain" class="input-spacing">
                             <option value="" disabled selected>Select hotel chain</option>
-                            <option value="hilton">Hilton</option>
-                            <option value="marriott">Marriott</option>
-                            <option value="sheraton">Sheraton</option>
-                            <option value="holidayinn">Holiday Inn</option>
-                            <option value="bestwestern">Best Western</option>
+                            <%
+                                List<String> chains = Index.getHotelChains();
+                                for (String chain : chains) {
+                            %>
+                            <option value="<%= chain %>"><%= chain %></option>
+                            <%
+                                }
+                            %>
                         </select>
                     </div>
 

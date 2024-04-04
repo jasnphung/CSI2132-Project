@@ -158,7 +158,6 @@
     <a href="adminLogin.jsp" style="color: white;">Admin? Login here</a>
 </footer>
 <script>
-    // Check if the SSN/SIN and last name matches an employee in the database
     document.querySelector('form').addEventListener('submit', function(event) {
         let username = document.querySelector('#username').value;
         let password = document.querySelector('#password').value;
