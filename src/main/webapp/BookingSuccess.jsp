@@ -114,6 +114,10 @@
             margin: 20px;
             border-radius: 5px;
             font-family: Gilroy-ExtraBold, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         .search-heading {
             margin: 20px;
@@ -146,17 +150,25 @@
         .table {
             border-collapse: collapse; /* Collapse the borders */
         }
-        .book-room-button {
-            font-size: 20px;
-            border-radius: 5px;
-            font-family: Gilroy-Light, sans-serif;
-            padding: 10px;
-            text-align: center;
-            border: 1px solid black;
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, auto);
+            gap: 10px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .submit-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     </style>
 </head>
-
 
 <body>
 <header>
@@ -171,104 +183,34 @@
     <a href="databaseView2.jsp">View 2</a>
     <a href="employeeLogin.jsp">Employee Login</a>
 </nav>
+
 <%@ page import="java.util.List" %>
 
-<%@ page import="com.DatabaseProjectWebsite.Tables.Employee" %>
-<%@ page import="com.DatabaseProjectWebsite.Tables.HotelRoom" %>
+<%@ page import="com.DatabaseProjectWebsite.Tables.View1" %>
 <%@ page import="java.util.ArrayList" %>
 <%
-    String ssnSinStr = request.getParameter("SSNSIN");
-    if (ssnSinStr == null) {
-        return; // Exit the scriptlet to prevent further execution
-    }
-    int ssnSin = Integer.parseInt(request.getParameter("SSNSIN"));
-    String lastName = request.getParameter("lastName");
-    List<HotelRoom> available_rooms = null;
-    try {
-        Employee employee = Employee.login(lastName, ssnSin);
 
-        if ( employee == null ) {
-            response.sendRedirect("employeeLogin.jsp");
-            return;
-        } else {
-            // get the users information, create an Employee instance, get all available rooms
-            available_rooms = employee.getAvailableRooms();
-        }
+    List<View1> viewItems = null;
+    try {
+        viewItems = View1.getData();
     } catch (Exception e) {
         e.printStackTrace();
     }
-
 %>
 
 <main style="padding-bottom: 50px">
-<% if (session.getAttribute("successMessage") != null) { %>
-    <div class="alert alert-success"><%= session.getAttribute("successMessage") %></div>
-<% } %>
-
-     <div class="container">
-         <div class="row" id="row">
-             <div class="col-md-12">
-                 <div class="card" id="card-container">
-                     <div class="card-body" id="card">
-                        <% if (available_rooms == null || available_rooms.size() == 0) { %>
-                         <h1 style="margin-top: 5rem;">No rooms currently available.</h1>
-                         <% } else { %>
-
-                             <h2>Available Rooms</h2>
-                            <!-- First table -->
-                            <div>
-                                <table class="table center-table">
-                                    <thead>
-                                        <tr>
-                                            <th class="table-header">Room number</th>
-                                            <th class="table-header">price</th>
-                                            <th class="table-header">capacity</th>
-                                            <th class="table-header">amenities</th>
-                                            <th class="table-header">damages</th>
-                                            <th class="table-header">view</th>
-                                            <th class="table-header">extensibility</th>
-                                            <th class="table-header">book</th>
-                                            <th class="table-header">rent</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <% for (HotelRoom room : available_rooms) { %>
-                                        <form action="bookRoom.jsp" method="POST">
-                                            <tr>
-                                                <td class="table-data"><%= room.getRoomNumber() %></td>
-                                                <td class="table-data"><%= room.getPrice() %></td>
-                                                <td class="table-data"><%= room.getCapacity() %></td>
-                                                <td class="table-data"><%= room.getAmenities() %></td>
-                                                <td class="table-data"><%= room.getProblemsAndDamages() %></td>
-                                                <td class="table-data"><%= room.getViewType() %></td>
-                                                <td class="table-data"><%= room.getExtensionCapabilities() %></td>
-                                                <td class="book-room-btn">
-                                                    <button type="submit" class="book-room-button" name="action" value="Book">
-                                                        Book Room
-                                                    </button>
-                                                </td>
-                                                <td class="rent-room-btn">
-                                                    <button type="submit" class="book-room-button" name="action" value="Rent">
-                                                        Rent Room
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </form>
-                                        <% } %>
-                                    </tbody>
-                                </table>
-                            </div>
-                         <% } %>
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </div>
+    <div class="container">
+        <div class="row" id="row">
+            <div class="col-md-12">
+                <div class="card" id="card-container">
+                    <div class="card-body" id="card">
+                        <h2 class="card-title">Booking was Successful.</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
-<%@ page import="com.DatabaseProjectWebsite.Tables.HotelRoom" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %>
-
 
 
 <footer style=background-color:#0b1021;>
