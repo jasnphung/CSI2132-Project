@@ -481,11 +481,11 @@
                                             <td class="table-data"><input class="table-insert-input" type="email" name="emailAddress" required></td>
                                             <td class="table-data">
                                                 <select class="table-insert-input" name="starRating" required>
-                                                    <option value="1">Single (1)</option>
-                                                    <option value="2">Double (2)</option>
-                                                    <option value="3">Triple (3)</option>
-                                                    <option value="4">Quadruple (4)</option>
-                                                    <option value="5">Suite (5+)</option>
+                                                    <option value="1">1/5</option>
+                                                    <option value="2">2/5</option>
+                                                    <option value="3">3/5</option>
+                                                    <option value="4">4/5</option>
+                                                    <option value="5">5/5</option>
                                                 </select>
                                             </td>
                                             <td class="table-data"><input class="table-insert-input" type="number" name="numberOfRooms" required></td>
@@ -561,7 +561,6 @@
                                                 <button type="button" class="edit-update-button">Edit/update entry</button>
                                             </a>
                                         </td>
-                                        <!-- TODO: CORRECT THIS -->
                                         <td class="table-data">
                                             <a href="adminPage.jsp?action=delete&type=HotelRoom&address=<%= URLEncoder.encode(r.getAddress(), "UTF-8") %>">
                                                 <button type="button" class="delete-button">Delete entry</button>
@@ -584,7 +583,15 @@
                                             <td class="table-data"><input class="table-insert-input" type="number" name="roomNumber" required></td>
                                             <td class="table-data"><input class="table-insert-input" type="text" name="amenities" required></td>
                                             <td class="table-data"><input class="table-insert-input" type="number" name="price" required></td>
-                                            <td class="table-data"><input class="table-insert-input" type="text" name="capacity" required></td>
+                                            <td class="table-data">
+                                                <select class="table-insert-input" name="capacity" required>
+                                                    <option value="1">Single (1)</option>
+                                                    <option value="2">Double (2)</option>
+                                                    <option value="3">Triple (3)</option>
+                                                    <option value="4">Quadruple (4)</option>
+                                                    <option value="5">Suite (5+)</option>
+                                                </select>
+                                            </td>
                                             <td class="table-data"><input class="table-insert-input" type="text" name="problemsAndDamages" required></td>
                                             <td class="table-data"><input class="table-insert-input" type="text" name="viewType" required></td>
                                             <td class="table-data"><input class="table-insert-input" type="text" name="extensionCapabilities" required></td>
