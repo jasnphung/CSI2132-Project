@@ -107,13 +107,13 @@
             height: 60px;
             font-family: Gilroy-ExtraBold, sans-serif;
         }
-        .book-room-button {
+        .search-button {
             font-size: 20px;
+            width: 500px;
+            height: 60px;
+            margin: 20px;
             border-radius: 5px;
-            font-family: Gilroy-Light, sans-serif;
-            padding: 10px;
-            text-align: center;
-            border: 1px solid black;
+            font-family: Gilroy-ExtraBold, sans-serif;
         }
         .search-heading {
             margin: 20px;
@@ -163,20 +163,24 @@
     <a href="employeeLogin.jsp">Employee Login</a>
 </nav>
 
-<%@ page import="java.util.List" %>
-<%@ page import="com.DatabaseProjectWebsite.Tables.Hotel" %>
-<%@ page import="com.DatabaseProjectWebsite.Tables.HotelRoom" %>
-<%@ page import="com.DatabaseProjectWebsite.Tables.SearchResult" %>
-<%@ page import="java.util.ArrayList" %>
 <%
+    String type = request.getParameter("type");
 
-    List<HotelRoom> rooms = null;
-    try {
-        rooms = SearchResult.getAllHotelRooms();
-    } catch (Exception e) {
-        e.printStackTrace();
+    String chainName = "";
+    String centralOfficeAddress = "";
+    String phoneNumber = "";
+    String emailAddress = "";
+    int numberOfHotels = 0;
+
+    if ("HotelChain".equals(type)) {
+        chainName = request.getParameter("chainName");
+        centralOfficeAddress = request.getParameter("centralOfficeAddress");
+        phoneNumber = request.getParameter("phoneNumber");
+        emailAddress = request.getParameter("emailAddress");
+        numberOfHotels = Integer.parseInt(request.getParameter("numberOfHotels"));
+
+        // Use these variables in your page
     }
-
 %>
 
 <main style="padding-bottom: 50px">
@@ -185,73 +189,20 @@
             <div class="col-md-12">
                 <div class="card" id="card-container">
                     <div class="card-body" id="card">
-                        <% if (rooms == null || rooms.size() == 0) { %>
-                        <h1 style="margin-top: 5rem;">No rooms currently available.</h1>
-                        <% } else { %>
-                        <h2>All Available Rooms</h2>
-                        <div>
-                            <table class="table center-table">
-                                <thead>
-                                <tr>
-                                    <th class="table-header">Hotel Chain</th>
-                                    <th class="table-header">Address</th>
-                                    <th class="table-header">Amenities</th>
-                                    <th class="table-header">Capacity</th>
-                                    <th class="table-header">Problems</th>
-                                    <th class="table-header">View</th>
-                                    <th class="table-header">Extendibility</th>
-                                    <th class="table-header">Price</th>
-                                    <th class="table-header">Book Room</th></tr>
-                                </thead>
-                                <tbody>
-                                <% for (HotelRoom room : rooms) { %>
-                                <tr>
-                                    <td class="table-data"><%= room.getHotelChain()%></td>
-                                    <td class="table-data"><%= room.getAddress() %></td>
-                                    <td class="table-data"><%= room.getAmenities() %></td>
-                                    <td class="table-data">
-                                        <%= room.getCapacity() %>
-                                        <%
-                                            switch(room.getCapacity()) {
-                                                case "Single":
-                                                    out.print(" (1)");
-                                                    break;
-                                                case "Double":
-                                                    out.print(" (2)");
-                                                    break;
-                                                case "Triple":
-                                                    out.print(" (3)");
-                                                    break;
-                                                case "Quadruple":
-                                                    out.print(" (4)");
-                                                    break;
-                                                case "Suite":
-                                                    out.print(" (5+)");
-                                                    break;
-                                            }
-                                        %>
-                                    </td>
-                                    <td class="table-data"><%= room.getProblemsAndDamages() == null ? "None" : room.getProblemsAndDamages() %></td>
-                                    <td class="table-data" style="color:<%= room.getViewType().equalsIgnoreCase("Sea") ? "blue" : (room.getViewType().equalsIgnoreCase("Mountain") ? "green" : "black") %>;"><%= room.getViewType() %></td>
-                                    <td class="table-data"><%= room.getExtensionCapabilities() %></td>
-                                    <td class="table-data">$<%= room.getPrice() %></td>
-                                    <td class="table-data">
-                                        <a href="bookRoom.jsp">
-                                            <button type="button" class="book-room-button">Book room</button>
-                                        </a>
-                                    </td></tr>
-                                <% } %>
-                                </tbody>
-                            </table>
-                        </div>
-                        <% } %>
+                        <h1 class="card-title" style="text-align: center;">Edit/update entry</h1>
+                        <h2>Hotel Chain Information</h2>
+                        <p>Chain Name: <%= chainName %></p>
+                        <p>Central Office Address: <%= centralOfficeAddress %></p>
+                        <p>Phone Number: <%= phoneNumber %></p>
+                        <p>Email Address: <%= emailAddress %></p>
+                        <p>Number of Hotels: <%= numberOfHotels %></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</main>
 
+</main>
 
 <footer style=background-color:#0b1021;>
     <a href="adminLogin.jsp" style="color: white;">Admin? Login here</a>

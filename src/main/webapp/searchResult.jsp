@@ -229,6 +229,7 @@
                                 <table class="table center-table">
                                     <thead>
                                         <tr>
+                                            <th class="table-header">Hotel chain</th>
                                             <th class="table-header">Address</th>
                                             <th class="table-header">Amenities</th>
                                             <th class="table-header">Capacity</th>
@@ -241,6 +242,7 @@
                                     <tbody>
                                         <% for (HotelRoom room : rooms) { %>
                                         <tr>
+                                            <td class="table-data"><%= room.getHotelChain()%></td>
                                             <td class="table-data"><%= room.getAddress() %></td>
                                             <td class="table-data"><%= room.getAmenities() %></td>
                                             <td class="table-data">

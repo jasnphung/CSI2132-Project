@@ -114,7 +114,7 @@
         }
         .search-button {
             font-size: 20px;
-            width: 500px;
+            width: 530px; /* 270 + 10 + 270 */
             height: 60px;
             margin: 20px;
             border-radius: 5px;
@@ -172,7 +172,7 @@
 <main class="search">
     <div class="background-div">
         <div class="foreground-div">
-            <h2 class="search-heading">Search for available hotels</h2>
+            <h2 class="search-heading">Search for available hotel rooms</h2>
 
             <a href="allHotelRoomsView.jsp">
                 <button type="button" class="view-all-button">Or, view all available rooms</button>

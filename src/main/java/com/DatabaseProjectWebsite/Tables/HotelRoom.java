@@ -6,6 +6,7 @@ import java.sql.*;
 import java.util.*;
 
 public class HotelRoom {
+    private String hotelChain;
     private String address;
     private int roomNumber;
     private String amenities;
@@ -27,7 +28,7 @@ public class HotelRoom {
         extensionCapabilities = ec;
         status = st;
     }
-
+    public String getHotelChain() { return hotelChain; }
     public String getAddress() { return address; }
     public int getRoomNumber() { return roomNumber; }
     public String getAmenities() { return amenities; }
@@ -38,6 +39,7 @@ public class HotelRoom {
     public String getExtensionCapabilities() { return extensionCapabilities; }
     public String getStatus() { return status; }
 
+    public void setHotelChain(String hotelChain) { this.hotelChain = hotelChain; }
     public void setAddress(String ad) { address = ad; }
     public void setRoomNumber(int rn) { roomNumber = rn; }
     public void setAmenities(String am) { amenities = am; }
@@ -51,6 +53,7 @@ public class HotelRoom {
     @Override
     public String toString() {
         return "<ul>"
+                + "<li>" + hotelChain + "</li>"
                 + "<li>" + address + "</li>"
                 + "<li>" + roomNumber + "</li>"
                 + "<li>" + amenities + "</li>"
@@ -64,7 +67,7 @@ public class HotelRoom {
     }
 
     public static List<HotelRoom> getAllHotelRooms() throws Exception {
-        String sql = "SELECT * FROM dbproj.hotelroom";
+        String sql = "SELECT HotelRoom.*, Hotel.chain_name FROM dbproj.HotelRoom JOIN dbproj.Hotel ON dbproj.HotelRoom.Address = dbproj.Hotel.Address;";
         DatabaseConnection db = new DatabaseConnection();
         List<HotelRoom> rooms = new ArrayList<HotelRoom>();
 
@@ -84,6 +87,7 @@ public class HotelRoom {
                         rs.getString("extension_capabilities"),
                         rs.getString("status")
                 );
+                room.setHotelChain(rs.getString("chain_name"));
                 rooms.add(room);
             }
             rs.close();

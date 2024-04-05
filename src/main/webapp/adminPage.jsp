@@ -146,6 +146,14 @@
         .table {
             border-collapse: collapse; /* Collapse the borders */
         }
+        .edit-update-button {
+            font-size: 20px;
+            border-radius: 5px;
+            font-family: Gilroy-Light, sans-serif;
+            padding: 10px;
+            text-align: center;
+            border: 1px solid black;
+        }
     </style>
 </head>
 
@@ -170,6 +178,7 @@
 <%@ page import="com.DatabaseProjectWebsite.Tables.Employee" %>
 <%@ page import="com.DatabaseProjectWebsite.Tables.Customer" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.net.URLEncoder" %>
 <%
 
     // get all hotel chains from database
@@ -231,6 +240,7 @@
                                         <th class="table-header">Contact Phone Number</th>
                                         <th class="table-header">Contact Email</th>
                                         <th class="table-header">Number of Hotels</th>
+                                        <th class="table-header">Edit/Update</th>
                                     </tr>
                                     </thead>
                                     <%
@@ -241,6 +251,11 @@
                                         <td class="table-data"><%= hc.getPhoneNumber() %></td>
                                         <td class="table-data"><%= hc.getEmailAddress() %></td>
                                         <td class="table-data"><%= hc.getNumberOfHotels() %></td>
+                                        <td class="table-data">
+                                            <a href="editUpdateEntry.jsp?type=HotelChain&chainName=<%= URLEncoder.encode(hc.getChainName(), "UTF-8") %>&centralOfficeAddress=<%= URLEncoder.encode(hc.getCentralOfficeAddress(), "UTF-8") %>&phoneNumber=<%= URLEncoder.encode(String.valueOf(hc.getPhoneNumber()), "UTF-8") %>&emailAddress=<%= URLEncoder.encode(String.valueOf(hc.getEmailAddress()), "UTF-8") %>&numberOfHotels=<%= URLEncoder.encode(String.valueOf(hc.getNumberOfHotels()), "UTF-8") %>">
+                                                <button type="button" class="edit-update-button">Edit/update entry</button>
+                                            </a>
+                                        </td>
                                     </tr>
                                     <% } %>
                                 </table>
@@ -255,25 +270,31 @@
                                 <table class="table center-table">
                                     <thead>
                                     <tr>
+                                        <th class="table-header">Chain name</th>
                                         <th class="table-header">Address</th>
                                         <th class="table-header">Phone number</th>
                                         <th class="table-header">Email address</th>
                                         <th class="table-header">Star rating</th>
                                         <th class="table-header">Total number of rooms</th>
-                                        <th class="table-header">Chain name</th>
                                         <th class="table-header">Manager ID</th>
+                                        <th class="table-header">Edit/Update</th>
                                     </tr>
                                     </thead>
                                     <%
                                         for (Hotel h : hotels) { %>
                                     <tr>
+                                        <td class="table-data"><%= h.getChainName() %></td>
                                         <td class="table-data"><%= h.getAddress() %></td>
                                         <td class="table-data"><%= h.getPhoneNumber() %></td>
                                         <td class="table-data"><%= h.getEmailAddress() %></td>
                                         <td class="table-data"><%= h.getStarRating() %></td>
                                         <td class="table-data"><%= h.getNumberOfRooms() %></td>
-                                        <td class="table-data"><%= h.getChainName() %></td>
                                         <td class="table-data"><%= h.getManagerID() %></td>
+                                        <td class="table-data">
+                                            <a href="editUpdateEntry.jsp?type=Hotel&chainName=<%= URLEncoder.encode(h.getChainName(), "UTF-8") %>&address=<%= URLEncoder.encode(h.getAddress(), "UTF-8") %>&phoneNumber=<%= URLEncoder.encode(String.valueOf(h.getPhoneNumber()), "UTF-8") %>&emailAddress=<%= URLEncoder.encode(String.valueOf(h.getEmailAddress()), "UTF-8") %>&starRating=<%= URLEncoder.encode(String.valueOf(h.getStarRating()), "UTF-8") %>&numberOfRooms=<%= URLEncoder.encode(String.valueOf(h.getNumberOfRooms()), "UTF-8") %>&managerID=<%= URLEncoder.encode(String.valueOf(h.getManagerID()), "UTF-8") %>">
+                                                <button type="button" class="edit-update-button">Edit/update entry</button>
+                                            </a>
+                                        </td>
                                     </tr>
                                     <% } %>
                                 </table>
@@ -287,6 +308,7 @@
                                 <table class="table center-table">
                                     <thead>
                                     <tr>
+                                        <th class="table-header">Hotel chain</th>
                                         <th class="table-header">Address</th>
                                         <th class="table-header">Room number</th>
                                         <th class="table-header">Amenities</th>
@@ -296,19 +318,21 @@
                                         <th class="table-header">View type</th>
                                         <th class="table-header">Extension capabilities</th>
                                         <th class="table-header">Status</th>
+                                        <th class="table-header">Edit/Update</th>
                                     </tr>
                                     </thead>
                                     <%
                                         for (HotelRoom r : rooms) { %>
                                     <tr>
+                                        <td class="table-data"><%= r.getHotelChain()%></td>
                                         <td class="table-data"><%= r.getAddress() %></td>
                                         <td class="table-data"><%= r.getRoomNumber() %></td>
                                         <td class="table-data"><%= r.getAmenities() %></td>
                                         <td class="table-data"><%= r.getPrice() %></td>
                                         <td class="table-data">
-                                            <%= room.getCapacity() %>
+                                            <%= r.getCapacity() %>
                                             <%
-                                                switch(room.getCapacity()) {
+                                                switch(r.getCapacity()) {
                                                     case "Single":
                                                         out.print(" (1)");
                                                         break;
@@ -330,7 +354,13 @@
                                         <td class="table-data"><%= r.getProblemsAndDamages() == null ? "None" : r.getProblemsAndDamages() %></td>
                                         <td class="table-data" style="color:<%= r.getViewType().equalsIgnoreCase("Sea") ? "blue" : (r.getViewType().equalsIgnoreCase("Mountain") ? "green" : "black") %>;"><%= r.getViewType() %></td>
                                         <td class="table-data"><%= r.getExtensionCapabilities() %></td>
-                                        <td class="table-data" style="color:<%= r.getStatus().equalsIgnoreCase("available") ? "green" : (r.getStatus().equalsIgnoreCase("booked") ? "yellow" : "red") %>;"><%= r.getStatus() %></td>                                    </tr>
+                                        <td class="table-data" style="color:<%= r.getStatus().equalsIgnoreCase("available") ? "green" : (r.getStatus().equalsIgnoreCase("booked") ? "yellow" : "red") %>;"><%= r.getStatus() %></td>
+                                        <td class="table-data">
+                                            <a href="editUpdateEntry.jsp?type=HotelRoom&hotelChain=<%= URLEncoder.encode(r.getHotelChain(), "UTF-8") %>&address=<%= URLEncoder.encode(r.getAddress(), "UTF-8") %>&roomNumber=<%= URLEncoder.encode(String.valueOf(r.getRoomNumber()), "UTF-8") %>&amenities=<%= URLEncoder.encode(String.valueOf(r.getAmenities()), "UTF-8") %>&price=<%= URLEncoder.encode(String.valueOf(r.getPrice()), "UTF-8") %>&capacity=<%= URLEncoder.encode(String.valueOf(r.getCapacity()), "UTF-8") %>&problemsAndDamages=<%= URLEncoder.encode(String.valueOf(r.getProblemsAndDamages()), "UTF-8") %>&viewType=<%= URLEncoder.encode(String.valueOf(r.getViewType()), "UTF-8") %>&extensionCapabilities=<%= URLEncoder.encode(String.valueOf(r.getExtensionCapabilities()), "UTF-8") %>&status=<%= URLEncoder.encode(String.valueOf(r.getStatus()), "UTF-8") %>">
+                                                <button type="button" class="edit-update-button">Edit/update entry</button>
+                                            </a>
+                                        </td>
+                                    </tr>
                                     <% } %>
                                 </table>
                             </div>
@@ -349,6 +379,7 @@
                                         <th class="table-header">Work address</th>
                                         <th class="table-header">SIN/SSN number</th>
                                         <th class="table-header">Job position</th>
+                                        <th class="table-header">Edit/Update</th>
                                     </tr>
                                     </thead>
                                     <%
@@ -360,6 +391,11 @@
                                         <td class="table-data"><%= e.getAddress() %></td>
                                         <td class="table-data"><%= e.getSinSsn() %></td>
                                         <td class="table-data"><%= e.getJobPosition() %></td>
+                                        <td class="table-data">
+                                            <a href="editUpdateEntry.jsp?type=Employee&firstName=<%= URLEncoder.encode(e.getFirstName(), "UTF-8") %>&middleName=<%= URLEncoder.encode(e.getMiddleName(), "UTF-8") %>&lastName=<%= URLEncoder.encode(e.getLastName(), "UTF-8") %>&address=<%= URLEncoder.encode(e.getAddress(), "UTF-8") %>&sinSsn=<%= URLEncoder.encode(String.valueOf(e.getSinSsn()), "UTF-8") %>&jobPosition=<%= URLEncoder.encode(e.getJobPosition(), "UTF-8") %>">
+                                                <button type="button" class="edit-update-button">Edit/update entry</button>
+                                            </a>
+                                        </td>
                                     </tr>
                                     <% } %>
                                 </table>
@@ -380,6 +416,7 @@
                                         <th class="table-header">Middle name</th>
                                         <th class="table-header">Last name</th>
                                         <th class="table-header">Address</th>
+                                        <th class="table-header">Edit/Update</th>
                                     </tr>
                                     </thead>
                                     <%
@@ -392,6 +429,11 @@
                                         <td class="table-data"><%= c.getMiddleName() %></td>
                                         <td class="table-data"><%= c.getLastName() %></td>
                                         <td class="table-data"><%= c.getAddress() %></td>
+                                        <td class="table-data">
+                                            <a href="editUpdateEntry.jsp?type=Customer&customerID=<%= URLEncoder.encode(String.valueOf(c.getCustomerID()), "UTF-8") %>&IDType=<%= URLEncoder.encode(c.getIDType(), "UTF-8") %>&registerDate=<%= URLEncoder.encode(String.valueOf(c.getRegisterDate()), "UTF-8") %>&firstName=<%= URLEncoder.encode(c.getFirstName(), "UTF-8") %>&middleName=<%= URLEncoder.encode(c.getMiddleName(), "UTF-8") %>&lastName=<%= URLEncoder.encode(c.getLastName(), "UTF-8") %>&address=<%= URLEncoder.encode(c.getAddress(), "UTF-8") %>">
+                                                <button type="button" class="edit-update-button">Edit/update entry</button>
+                                            </a>
+                                        </td>
                                     </tr>
                                     <% } %>
                                 </table>

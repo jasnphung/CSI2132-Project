@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchResult {
-
+    private String hotelChain;
     private String city;
     private int numGuests;
     private String chain;
@@ -25,6 +25,8 @@ public class SearchResult {
         numberofRooms = nr;
         price = p;
     }
+
+    public String getHotelChain() { return hotelChain;}
 
     public String getCity() {
         return city;
@@ -90,7 +92,7 @@ public class SearchResult {
 
 
     public List<HotelRoom> getSearchedRooms(Hotel hotel) throws Exception {
-        String sql = "SELECT * FROM dbproj.HotelRoom WHERE address=? AND price <= ? AND status='available' AND capacity=? ;";
+        String sql = "SELECT HotelRoom.*, Hotel.chain_name FROM dbproj.HotelRoom JOIN dbproj.Hotel ON dbproj.HotelRoom.Address = dbproj.Hotel.Address WHERE dbproj.HotelRoom.address=? AND price <= ? AND status='available' AND capacity=? ;";
         DatabaseConnection db = new DatabaseConnection();
         List<HotelRoom> rooms = new ArrayList<HotelRoom>();
 
@@ -116,6 +118,7 @@ public class SearchResult {
                         rs.getString("extension_capabilities"),
                         rs.getString("status")
                 );
+                room.setHotelChain(rs.getString("chain_name"));
                 rooms.add(room);
             }
             rs.close();
@@ -130,7 +133,7 @@ public class SearchResult {
     }
 
     public static List<HotelRoom> getAllHotelRooms() throws Exception {
-        String sql = "SELECT * FROM dbproj.HotelRoom WHERE status='available'";
+        String sql = "SELECT HotelRoom.*, Hotel.chain_name FROM dbproj.HotelRoom JOIN dbproj.Hotel ON dbproj.HotelRoom.Address = dbproj.Hotel.Address WHERE status='available'";
         DatabaseConnection db = new DatabaseConnection();
         List<HotelRoom> rooms = new ArrayList<HotelRoom>();
 
@@ -150,6 +153,7 @@ public class SearchResult {
                         rs.getString("extension_capabilities"),
                         rs.getString("status")
                 );
+                room.setHotelChain(rs.getString("chain_name"));
                 rooms.add(room);
             }
             rs.close();
