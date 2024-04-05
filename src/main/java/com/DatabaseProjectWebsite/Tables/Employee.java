@@ -187,4 +187,57 @@ public class Employee {
 
         return message;
     }
+
+    public static void insertEmployee(String firstName, String middleName, String lastName, String address, long sinSsn, String jobPosition) throws Exception {
+        String sql = "INSERT INTO dbproj.employee (first_name, middle_name, last_name, address, sin_ssn_number, job_position) VALUES (?, ?, ?, ?, ?, ?)";
+        DatabaseConnection db = new DatabaseConnection();
+
+        try (Connection con = db.getConnection()) {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, firstName);
+            stmt.setString(2, middleName);
+            stmt.setString(3, lastName);
+            stmt.setString(4, address);
+            stmt.setLong(5, sinSsn);
+            stmt.setString(6, jobPosition);
+
+            stmt.executeUpdate();
+
+            stmt.close();
+        } catch (SQLException e) {
+            throw new Exception("Could not insert employee: " + e.getMessage());
+        } finally {
+            db.close();
+        }
+    }
+
+    public static void deleteEmployee(long sinSsn) throws Exception {
+        // SQL query
+        String sql = "DELETE FROM dbproj.employee WHERE sin_ssn_number = ?";
+
+        // Connection object
+        DatabaseConnection db = new DatabaseConnection();
+
+        try (Connection con = db.getConnection()) {
+            // Prepare statement
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setLong(1, sinSsn);
+
+            // Execute the query
+            int rowsAffected = stmt.executeUpdate();
+
+            // Check if any rows were affected
+            if (rowsAffected == 0) {
+                throw new Exception("No employee found with the provided SIN/SSN.");
+            }
+
+            // Close the statement
+            stmt.close();
+        } catch (SQLException e) {
+            throw new Exception("Could not delete employee: " + e.getMessage());
+        } finally {
+            // Close the connection
+            db.close();
+        }
+    }
 }

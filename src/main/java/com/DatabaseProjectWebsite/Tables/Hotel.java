@@ -120,4 +120,147 @@ public class Hotel {
 
         return message;
     }
+
+    public static void insertHotel(String chainName, String address, long phoneNumber, String emailAddress, int starRating, int numberOfRooms, int managerID) throws Exception {
+        // sql query to insert phone number into contactPhoneNumber table
+        String sqlPhone = "INSERT INTO dbproj.contactPhoneNumber (phone_number) VALUES (?)";
+
+        // sql query to insert email into contactEmailAddress table
+        String sqlEmail = "INSERT INTO dbproj.contactEmailAddress (email_address) VALUES (?)";
+
+        // sql query to insert hotel data into hotel table
+        String sqlHotel = "INSERT INTO dbproj.hotel (chain_name, address, phone_number, email_address, star_rating, number_of_rooms, manager) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        // connection object
+        DatabaseConnection db = new DatabaseConnection();
+
+        try (Connection con = db.getConnection()) {
+            // prepare statement for inserting phone number
+            PreparedStatement stmtPhone = con.prepareStatement(sqlPhone);
+
+            // set parameter for phone number
+            stmtPhone.setLong(1, phoneNumber);
+
+            // execute the query to insert phone number
+            stmtPhone.executeUpdate();
+
+            // prepare statement for inserting email
+            PreparedStatement stmtEmail = con.prepareStatement(sqlEmail);
+
+            // set parameter for email
+            stmtEmail.setString(1, emailAddress);
+
+            // execute the query to insert email
+            stmtEmail.executeUpdate();
+
+            // prepare statement for inserting hotel
+            PreparedStatement stmtHotel = con.prepareStatement(sqlHotel);
+
+            // set parameters for hotel
+            stmtHotel.setString(1, chainName);
+            stmtHotel.setString(2, address);
+            stmtHotel.setLong(3, phoneNumber);
+            stmtHotel.setString(4, emailAddress);
+            stmtHotel.setInt(5, starRating);
+            stmtHotel.setInt(6, numberOfRooms);
+            stmtHotel.setInt(7, managerID);
+
+            // execute the query to insert hotel
+            stmtHotel.executeUpdate();
+
+            // close statements
+            stmtPhone.close();
+            stmtEmail.close();
+            stmtHotel.close();
+
+            // close connection
+            con.close();
+            db.close();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    public static void deleteHotel(String address) throws Exception {
+        // SQL queries
+        String sqlGetDetails = "SELECT phone_number, email_address FROM dbproj.hotel WHERE address = ?";
+        String sqlDeletePhone = "DELETE FROM dbproj.contactPhoneNumber WHERE phone_number = ?";
+        String sqlDeleteEmail = "DELETE FROM dbproj.contactEmailAddress WHERE email_address = ?";
+        String sqlDeleteHotel = "DELETE FROM dbproj.hotel WHERE address = ?";
+
+        System.out.println(sqlGetDetails);
+        System.out.println(sqlDeletePhone);
+        System.out.println(sqlDeleteEmail);
+        System.out.println(sqlDeleteHotel);
+
+        // Connection object
+        DatabaseConnection db = new DatabaseConnection();
+
+        try (Connection con = db.getConnection()) {
+            // Prepare statement to get phone number and email address
+            PreparedStatement stmtGetDetails = con.prepareStatement(sqlGetDetails);
+            stmtGetDetails.setString(1, address);
+            ResultSet rs = stmtGetDetails.executeQuery();
+
+            if (rs.next()) {
+                long phoneNumber = rs.getLong("phone_number");
+                String emailAddress = rs.getString("email_address");
+
+                // Prepare statement to delete phone number
+                PreparedStatement stmtDeletePhone = con.prepareStatement(sqlDeletePhone);
+                stmtDeletePhone.setLong(1, phoneNumber);
+                stmtDeletePhone.executeUpdate();
+
+                // Prepare statement to delete email address
+                PreparedStatement stmtDeleteEmail = con.prepareStatement(sqlDeleteEmail);
+                stmtDeleteEmail.setString(1, emailAddress);
+                stmtDeleteEmail.executeUpdate();
+            }
+
+            // Prepare statement to delete hotel
+            PreparedStatement stmtDeleteHotel = con.prepareStatement(sqlDeleteHotel);
+            stmtDeleteHotel.setString(1, address);
+            stmtDeleteHotel.executeUpdate();
+
+            // Close statements and result set
+            rs.close();
+            stmtGetDetails.close();
+            con.close();
+            db.close();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    public static List<String> getAddressesByChainName(String chainName) throws Exception {
+        List<String> addresses = new ArrayList<>();
+
+        // SQL query
+        String sql = "SELECT address FROM dbproj.hotel WHERE chain_name = ?";
+
+        // Connection object
+        DatabaseConnection db = new DatabaseConnection();
+
+        try (Connection con = db.getConnection()) {
+            // Prepare statement
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, chainName);
+            ResultSet rs = stmt.executeQuery();
+
+            // Iterate over the result set and add each address to the list
+            while (rs.next()) {
+                addresses.add(rs.getString("address"));
+            }
+
+            // Close statements and result set
+            rs.close();
+            stmt.close();
+            con.close();
+            db.close();
+        } catch (Exception e) {
+            throw new Exception("Could not retrieve addresses: " + e.getMessage());
+        }
+
+        return addresses;
+    }
 }

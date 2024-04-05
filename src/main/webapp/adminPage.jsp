@@ -202,6 +202,18 @@
 <%@ page import="com.DatabaseProjectWebsite.Tables.Customer" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.net.URLEncoder" %>
+<%@ page import="org.json.JSONArray" %>
+<%
+    String chainName3 = request.getParameter("chainNameTable3");
+    List<String> addresses = null;
+    try {
+        addresses = Hotel.getAddressesByChainName(chainName3);
+    } catch (Exception e) {
+        throw new RuntimeException(e);
+    }
+    JSONArray jsonAddresses = new JSONArray(addresses);
+    // out.print(jsonAddresses.toString());
+%>
 <%
 
     // get all hotel chains from database
@@ -261,6 +273,45 @@
 %>
 
 <%
+    if (request.getMethod().equals("POST") && request.getParameter("type") != null && request.getParameter("type").equals("Hotel")) {
+        String chainName = request.getParameter("chainName");
+        String address = request.getParameter("address");
+        long phoneNumber = Long.parseLong(request.getParameter("phoneNumber"));
+        String emailAddress = request.getParameter("emailAddress");
+        int starRating = Integer.parseInt(request.getParameter("starRating"));
+        int numberOfRooms = Integer.parseInt(request.getParameter("numberOfRooms"));
+        int managerID = Integer.parseInt(request.getParameter("managerID"));
+
+        try {
+            Hotel.insertHotel(chainName, address, phoneNumber, emailAddress, starRating, numberOfRooms, managerID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        response.sendRedirect("adminPage.jsp");
+    }
+%>
+
+<%
+    if (request.getMethod().equals("POST") && request.getParameter("type") != null && request.getParameter("type").equals("Employee")) {
+        String firstName = request.getParameter("firstName");
+        String middleName = request.getParameter("middleName");
+        String lastName = request.getParameter("lastName");
+        String address = request.getParameter("address");
+        long sinSsn = Long.parseLong(request.getParameter("sinSsn"));
+        String jobPosition = request.getParameter("jobPosition");
+
+        try {
+            Employee.insertEmployee(firstName, middleName, lastName, address, sinSsn, jobPosition);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        response.sendRedirect("adminPage.jsp");
+    }
+%>
+
+<%
     String action = request.getParameter("action");
     String type = request.getParameter("type");
     String chainName = request.getParameter("chainName");
@@ -268,6 +319,43 @@
     if ("delete".equals(action) && "HotelChain".equals(type) && chainName != null) {
         try {
             HotelChain.deleteHotelChain(chainName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        response.sendRedirect("adminPage.jsp");
+    }
+%>
+
+<%
+    action = request.getParameter("action");
+    type = request.getParameter("type");
+    String address = request.getParameter("address");
+
+    if ("delete".equals(action) && "Hotel".equals(type) && address != null) {
+        try {
+            System.out.println(address);
+            Hotel.deleteHotel(address);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        response.sendRedirect("adminPage.jsp");
+    }
+%>
+
+<%
+    action = request.getParameter("action");
+    type = request.getParameter("type");
+    String sinSsnStr = request.getParameter("sinSsn");
+    long sinSsn = 0;
+    if (sinSsnStr != null && !sinSsnStr.isEmpty()) {
+        sinSsn = Long.parseLong(sinSsnStr);
+    }
+
+    if ("delete".equals(action) && "Employee".equals(type) && sinSsn != 0) {
+        try {
+            Employee.deleteEmployee(sinSsn);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -373,7 +461,7 @@
                                             </a>
                                         </td>
                                         <td class="table-data">
-                                            <a href="adminPage.jsp?type=Hotel&chainName=<%= URLEncoder.encode(h.getChainName(), "UTF-8") %>&address=<%= URLEncoder.encode(h.getAddress(), "UTF-8") %>&phoneNumber=<%= URLEncoder.encode(String.valueOf(h.getPhoneNumber()), "UTF-8") %>&emailAddress=<%= URLEncoder.encode(String.valueOf(h.getEmailAddress()), "UTF-8") %>&starRating=<%= URLEncoder.encode(String.valueOf(h.getStarRating()), "UTF-8") %>&numberOfRooms=<%= URLEncoder.encode(String.valueOf(h.getNumberOfRooms()), "UTF-8") %>&managerID=<%= URLEncoder.encode(String.valueOf(h.getManagerID()), "UTF-8") %>">
+                                            <a href="adminPage.jsp?action=delete&type=Hotel&hotelID=<%= URLEncoder.encode(h.getAddress(), "UTF-8") %>">
                                                 <button type="button" class="delete-button">Delete entry</button>
                                             </a>
                                         </td>
@@ -381,11 +469,25 @@
                                     <% } %>
                                     <tr>
                                         <form action="adminPage.jsp" method="post">
-                                            <td class="table-data"><input class="table-insert-input" type="text" name="chainName" required></td>
+                                            <td class="table-data">
+                                                <select class="table-insert-input" name="chainName" required>
+                                                    <% for (HotelChain hc : chains) { %>
+                                                    <option value="<%= hc.getChainName() %>"><%= hc.getChainName() %></option>
+                                                    <% } %>
+                                                </select>
+                                            </td>
                                             <td class="table-data"><input class="table-insert-input" type="text" name="address" required></td>
                                             <td class="table-data"><input class="table-insert-input" type="number" name="phoneNumber" required></td>
                                             <td class="table-data"><input class="table-insert-input" type="email" name="emailAddress" required></td>
-                                            <td class="table-data"><input class="table-insert-input" type="number" name="starRating" required></td>
+                                            <td class="table-data">
+                                                <select class="table-insert-input" name="starRating" required>
+                                                    <option value="1">Single (1)</option>
+                                                    <option value="2">Double (2)</option>
+                                                    <option value="3">Triple (3)</option>
+                                                    <option value="4">Quadruple (4)</option>
+                                                    <option value="5">Suite (5+)</option>
+                                                </select>
+                                            </td>
                                             <td class="table-data"><input class="table-insert-input" type="number" name="numberOfRooms" required></td>
                                             <td class="table-data"><input class="table-insert-input" type="number" name="managerID" required></td>
                                             <td class="table-data">
@@ -459,8 +561,9 @@
                                                 <button type="button" class="edit-update-button">Edit/update entry</button>
                                             </a>
                                         </td>
+                                        <!-- TODO: CORRECT THIS -->
                                         <td class="table-data">
-                                            <a href="adminPage.jsp?type=HotelRoom&hotelChain=<%= URLEncoder.encode(r.getHotelChain(), "UTF-8") %>&address=<%= URLEncoder.encode(r.getAddress(), "UTF-8") %>&roomNumber=<%= URLEncoder.encode(String.valueOf(r.getRoomNumber()), "UTF-8") %>&amenities=<%= URLEncoder.encode(String.valueOf(r.getAmenities()), "UTF-8") %>&price=<%= URLEncoder.encode(String.valueOf(r.getPrice()), "UTF-8") %>&capacity=<%= URLEncoder.encode(String.valueOf(r.getCapacity()), "UTF-8") %>&problemsAndDamages=<%= URLEncoder.encode(String.valueOf(r.getProblemsAndDamages()), "UTF-8") %>&viewType=<%= URLEncoder.encode(String.valueOf(r.getViewType()), "UTF-8") %>&extensionCapabilities=<%= URLEncoder.encode(String.valueOf(r.getExtensionCapabilities()), "UTF-8") %>&status=<%= URLEncoder.encode(String.valueOf(r.getStatus()), "UTF-8") %>">
+                                            <a href="adminPage.jsp?action=delete&type=HotelRoom&address=<%= URLEncoder.encode(r.getAddress(), "UTF-8") %>">
                                                 <button type="button" class="delete-button">Delete entry</button>
                                             </a>
                                         </td>
@@ -468,8 +571,16 @@
                                     <% } %>
                                     <tr>
                                         <form action="adminPage.jsp" method="post">
-                                            <td class="table-data"><input class="table-insert-input" type="text" name="hotelChain" required></td>
-                                            <td class="table-data"><input class="table-insert-input" type="text" name="address" required></td>
+                                            <td class="table-data">
+                                                <select class="table-insert-input" name="chainNameTable3" required>
+                                                    <% for (HotelChain hc : chains) { %>
+                                                    <option value="<%= hc.getChainName() %>"><%= hc.getChainName() %></option>
+                                                    <% } %>
+                                                </select>
+                                            </td>
+                                            <td class="table-data">
+                                                <select class="table-insert-input" name="address" id="address" required></select>
+                                            </td>
                                             <td class="table-data"><input class="table-insert-input" type="number" name="roomNumber" required></td>
                                             <td class="table-data"><input class="table-insert-input" type="text" name="amenities" required></td>
                                             <td class="table-data"><input class="table-insert-input" type="number" name="price" required></td>
@@ -521,7 +632,7 @@
                                             </a>
                                         </td>
                                         <td class="table-data">
-                                            <a href="adminPage.jsp?type=Employee&firstName=<%= URLEncoder.encode(e.getFirstName(), "UTF-8") %>&middleName=<%= URLEncoder.encode(e.getMiddleName(), "UTF-8") %>&lastName=<%= URLEncoder.encode(e.getLastName(), "UTF-8") %>&address=<%= URLEncoder.encode(e.getAddress(), "UTF-8") %>&sinSsn=<%= URLEncoder.encode(String.valueOf(e.getSinSsn()), "UTF-8") %>&jobPosition=<%= URLEncoder.encode(e.getJobPosition(), "UTF-8") %>">
+                                            <a href="adminPage.jsp?action=delete&type=Employee&sinSsn=<%= URLEncoder.encode(String.valueOf(e.getSinSsn()), "UTF-8") %>">
                                                 <button type="button" class="delete-button">Delete entry</button>
                                             </a>
                                         </td>
@@ -532,7 +643,16 @@
                                             <td class="table-data"><input class="table-insert-input" type="text" name="firstName" required></td>
                                             <td class="table-data"><input class="table-insert-input" type="text" name="middleName" required></td>
                                             <td class="table-data"><input class="table-insert-input" type="text" name="lastName" required></td>
-                                            <td class="table-data"><input class="table-insert-input" type="text" name="address" required></td>
+                                            <td class="table-data">
+                                                <select class="table-insert-input" name="address" required>
+                                                    <% for (HotelChain hc : chains) { %>
+                                                    <option value="<%= hc.getCentralOfficeAddress() %>"><%= hc.getCentralOfficeAddress() %></option>
+                                                    <% } %>
+                                                    <% for (Hotel h : hotels) { %>
+                                                    <option value="<%= h.getAddress() %>"><%= h.getAddress() %></option>
+                                                    <% } %>
+                                                </select>
+                                            </td>
                                             <td class="table-data"><input class="table-insert-input" type="number" name="sinSsn" required></td>
                                             <td class="table-data"><input class="table-insert-input" type="text" name="jobPosition" required></td>
                                             <td class="table-data">
@@ -612,6 +732,33 @@
         </div>
 
 </main>
+
+<script>
+    function updateAddressDropdown() {
+        var chainName = document.getElementById('chainName').value;
+
+        // Send an AJAX request to the server to get the addresses for the selected hotel chain
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'getAddresses.jsp?chainName=' + encodeURIComponent(chainName), true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var addresses = JSON.parse(xhr.responseText);
+
+                // Update the address dropdown with the received addresses
+                var addressDropdown = document.getElementById('address');
+                addressDropdown.innerHTML = '';
+                for (var i = 0; i < addresses.length; i++) {
+                    var option = document.createElement('option');
+                    option.value = addresses[i];
+                    option.text = addresses[i];
+                    addressDropdown.appendChild(option);
+                }
+            }
+        };
+        xhr.send();
+    }
+</script>
+
 <footer style=background-color:#0b1021;>
     <a href="adminLogin.jsp" style="color: white;">Admin? Login here</a>
 </footer>
