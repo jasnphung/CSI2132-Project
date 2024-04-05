@@ -330,7 +330,7 @@
 <%
     action = request.getParameter("action");
     type = request.getParameter("type");
-    String address = request.getParameter("address");
+    String address = request.getParameter("hotelID");
 
     if ("delete".equals(action) && "Hotel".equals(type) && address != null) {
         try {
@@ -347,6 +347,7 @@
 <%
     action = request.getParameter("action");
     type = request.getParameter("type");
+
     String sinSsnStr = request.getParameter("sinSsn");
     long sinSsn = 0;
     if (sinSsnStr != null && !sinSsnStr.isEmpty()) {

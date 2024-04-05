@@ -187,6 +187,7 @@ public class Hotel {
         String sqlDeletePhone = "DELETE FROM dbproj.contactPhoneNumber WHERE phone_number = ?";
         String sqlDeleteEmail = "DELETE FROM dbproj.contactEmailAddress WHERE email_address = ?";
         String sqlDeleteHotel = "DELETE FROM dbproj.hotel WHERE address = ?";
+        String sqlDeleteHotelRooms = "DELETE FROM dbproj.hotelroom WHERE address = ?";
 
         System.out.println(sqlGetDetails);
         System.out.println(sqlDeletePhone);
@@ -201,14 +202,28 @@ public class Hotel {
             PreparedStatement stmtGetDetails = con.prepareStatement(sqlGetDetails);
             stmtGetDetails.setString(1, address);
             ResultSet rs = stmtGetDetails.executeQuery();
+            boolean rs_next = rs.next();
 
-            if (rs.next()) {
-                long phoneNumber = rs.getLong("phone_number");
+            // delete all rooms from that hotel BEFORE deleting the hotel
+            // hotel rooms cant exist without a hotel
+            if(rs_next) {
+                PreparedStatement stmtDeleteHotelRooms = con.prepareStatement(sqlDeleteHotelRooms);
+                stmtDeleteHotelRooms.setString(1, address);
+                stmtDeleteHotelRooms.executeUpdate();
+            }
+
+
+            // Prepare statement to delete hotel
+            PreparedStatement stmtDeleteHotel = con.prepareStatement(sqlDeleteHotel);
+            stmtDeleteHotel.setString(1, address);
+            stmtDeleteHotel.executeUpdate();
+
+            if (rs_next) {
+                String phoneNumber = rs.getString("phone_number");
                 String emailAddress = rs.getString("email_address");
-
                 // Prepare statement to delete phone number
                 PreparedStatement stmtDeletePhone = con.prepareStatement(sqlDeletePhone);
-                stmtDeletePhone.setLong(1, phoneNumber);
+                stmtDeletePhone.setString(1, phoneNumber);
                 stmtDeletePhone.executeUpdate();
 
                 // Prepare statement to delete email address
@@ -217,18 +232,13 @@ public class Hotel {
                 stmtDeleteEmail.executeUpdate();
             }
 
-            // Prepare statement to delete hotel
-            PreparedStatement stmtDeleteHotel = con.prepareStatement(sqlDeleteHotel);
-            stmtDeleteHotel.setString(1, address);
-            stmtDeleteHotel.executeUpdate();
-
             // Close statements and result set
             rs.close();
             stmtGetDetails.close();
             con.close();
             db.close();
         } catch (Exception e) {
-            throw new Exception(e.getMessage());
+            e.printStackTrace();
         }
     }
 
