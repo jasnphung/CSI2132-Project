@@ -8,12 +8,12 @@ import java.util.*;
 public class HotelChain {
     private String chainName;
     private String centralOfficeAddress;
-    private int phoneNumber;
+    private long phoneNumber;
     private String emailAddress;
     private int numberOfHotels;
 
 
-    public HotelChain(String cn,String coa, int pn, String ea, int noh) {
+    public HotelChain(String cn,String coa, long pn, String ea, int noh) {
         chainName = cn;
         centralOfficeAddress = coa;
         phoneNumber = pn;
@@ -24,14 +24,14 @@ public class HotelChain {
 
     public String getChainName(){ return chainName; }
     public String getCentralOfficeAddress(){ return centralOfficeAddress; }
-    public int getPhoneNumber(){ return phoneNumber; }
+    public long getPhoneNumber(){ return phoneNumber; }
     public String getEmailAddress(){ return emailAddress; }
     public int getNumberOfHotels(){ return  numberOfHotels; }
 
 
     public void setChainName(String cn){ chainName = cn; }
     public void setCentralOfficeAddress(String coa ){ centralOfficeAddress = coa; }
-    public void setPhoneNumber(int pn ){ phoneNumber = pn; }
+    public void setPhoneNumber(long pn ){ phoneNumber = pn; }
     public void setEmailAddress(String ea ){ emailAddress = ea; }
     public void setNumberOfHotels(int noh ){ numberOfHotels = noh; }
 
@@ -69,7 +69,7 @@ public class HotelChain {
                 HotelChain chain = new HotelChain(
                         ((ResultSet) rs).getString("chain_name"),
                         rs.getString("central_office_address"),
-                        rs.getInt("phone_number"),
+                        rs.getLong("phone_number"),
                         rs.getString("email_address"),
                         rs.getInt("number_of_hotels")
                 );
@@ -112,7 +112,7 @@ public class HotelChain {
 
             // set every ? of statement
             stmt.setString(1, chain.getCentralOfficeAddress());
-            stmt.setInt(2, chain.getPhoneNumber());
+            stmt.setLong(2, chain.getPhoneNumber());
             stmt.setString(3, chain.getEmailAddress());
             stmt.setInt(4, chain.getNumberOfHotels());
             stmt.setString(5, chain.getChainName());
@@ -135,4 +135,57 @@ public class HotelChain {
         return message;
     }
 
+    public static void insertHotelChain(String chainName, String centralOfficeAddress, long phoneNumber, String emailAddress, int numberOfHotels) throws Exception {
+        // sql query
+        String sql = "INSERT INTO dbproj.hotelchain (chain_name, central_office_address, phone_number, email_address, number_of_hotels) VALUES (?, ?, ?, ?, ?)";
+        // connection object
+        DatabaseConnection db = new DatabaseConnection();
+
+        try (Connection con = db.getConnection()) {
+            // prepare statement
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            // set parameters
+            stmt.setString(1, chainName);
+            stmt.setString(2, centralOfficeAddress);
+            stmt.setLong(3, phoneNumber);
+            stmt.setString(4, emailAddress);
+            stmt.setInt(5, numberOfHotels);
+
+            // execute the query
+            stmt.executeUpdate();
+
+            // close statement
+            stmt.close();
+            con.close();
+            db.close();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    public static void deleteHotelChain(String chainName) throws Exception {
+        // sql query
+        String sql = "DELETE FROM dbproj.hotelchain WHERE chain_name = ?";
+        // connection object
+        DatabaseConnection db = new DatabaseConnection();
+
+        try (Connection con = db.getConnection()) {
+            // prepare statement
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            // set parameters
+            stmt.setString(1, chainName);
+
+            // execute the query
+            stmt.executeUpdate();
+
+            // close statement
+            stmt.close();
+            con.close();
+            db.close();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
 }

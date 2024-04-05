@@ -145,6 +145,7 @@
         }
         .table {
             border-collapse: collapse; /* Collapse the borders */
+            background-color: white;
         }
         .edit-update-button {
             font-size: 20px;
@@ -153,6 +154,28 @@
             padding: 10px;
             text-align: center;
             border: 1px solid black;
+            background-color: lightgrey;
+        }
+        .delete-button {
+            font-size: 20px;
+            border-radius: 5px;
+            font-family: Gilroy-Light, sans-serif;
+            padding: 10px;
+            text-align: center;
+            border: 1px solid black;
+            background-color: #FF6961;
+            color: white;
+        }
+        .table-insert-input {
+            font-family: Gilroy-Light, sans-serif;
+            font-size: 18px; /* 16px -> default font size */
+            padding: 10px;
+            text-align: left;
+            border: 1px solid black;
+            margin: 10px;
+            border-radius: 5px;
+            box-sizing: border-box;
+            background-color: lightgrey;
         }
     </style>
 </head>
@@ -219,6 +242,40 @@
     }
 %>
 
+<%
+    if (request.getMethod().equals("POST") && request.getParameter("type") != null && request.getParameter("type").equals("HotelChain")) {
+        String chainName = request.getParameter("chainName");
+        String centralOfficeAddress = request.getParameter("centralOfficeAddress");
+        long phoneNumber = Long.parseLong(request.getParameter("phoneNumber")); // Change this line
+        String emailAddress = request.getParameter("emailAddress");
+        int numberOfHotels = Integer.parseInt(request.getParameter("numberOfHotels"));
+
+        try {
+            HotelChain.insertHotelChain(chainName, centralOfficeAddress, phoneNumber, emailAddress, numberOfHotels);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        response.sendRedirect("adminPage.jsp");
+    }
+%>
+
+<%
+    String action = request.getParameter("action");
+    String type = request.getParameter("type");
+    String chainName = request.getParameter("chainName");
+
+    if ("delete".equals(action) && "HotelChain".equals(type) && chainName != null) {
+        try {
+            HotelChain.deleteHotelChain(chainName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        response.sendRedirect("adminPage.jsp");
+    }
+%>
+
 <main style="padding-bottom: 50px">
      <div class="container">
             <div class="row" id="row">
@@ -241,6 +298,7 @@
                                         <th class="table-header">Contact Email</th>
                                         <th class="table-header">Number of Hotels</th>
                                         <th class="table-header">Edit/Update</th>
+                                        <th class="table-header">Delete</th>
                                     </tr>
                                     </thead>
                                     <%
@@ -256,12 +314,30 @@
                                                 <button type="button" class="edit-update-button">Edit/update entry</button>
                                             </a>
                                         </td>
+                                        <td class="table-data">
+                                            <a href="adminPage.jsp?action=delete&type=HotelChain&chainName=<%= URLEncoder.encode(hc.getChainName(), "UTF-8") %>">
+                                                <button type="button" class="delete-button">Delete entry</button>
+                                            </a>
+                                        </td>
                                     </tr>
                                     <% } %>
+                                    <tr>
+                                        <form action="adminPage.jsp" method="post">
+                                            <td class="table-data"><input class="table-insert-input" type="text" name="chainName" required></td>
+                                            <td class="table-data"><input class="table-insert-input" type="text" name="centralOfficeAddress" required></td>
+                                            <td class="table-data"><input class="table-insert-input" type="number" name="phoneNumber" required></td>
+                                            <td class="table-data"><input class="table-insert-input" type="email" name="emailAddress" required></td>
+                                            <td class="table-data"><input class="table-insert-input" type="number" name="numberOfHotels" required></td>
+                                            <td class="table-data">
+                                                <input type="hidden" name="type" value="HotelChain">
+                                                <input type="submit" value="Insert new entry" class="edit-update-button">
+                                            </td>
+                                            <td class="table-data"></td>
+                                        </form>
+                                    </tr>
                                 </table>
                             </div>
 
-                            <h3>Add a hotel chain</h3>
 
 
                             <!-- Second table -->
@@ -278,6 +354,7 @@
                                         <th class="table-header">Total number of rooms</th>
                                         <th class="table-header">Manager ID</th>
                                         <th class="table-header">Edit/Update</th>
+                                        <th class="table-header">Delete</th>
                                     </tr>
                                     </thead>
                                     <%
@@ -295,8 +372,29 @@
                                                 <button type="button" class="edit-update-button">Edit/update entry</button>
                                             </a>
                                         </td>
+                                        <td class="table-data">
+                                            <a href="adminPage.jsp?type=Hotel&chainName=<%= URLEncoder.encode(h.getChainName(), "UTF-8") %>&address=<%= URLEncoder.encode(h.getAddress(), "UTF-8") %>&phoneNumber=<%= URLEncoder.encode(String.valueOf(h.getPhoneNumber()), "UTF-8") %>&emailAddress=<%= URLEncoder.encode(String.valueOf(h.getEmailAddress()), "UTF-8") %>&starRating=<%= URLEncoder.encode(String.valueOf(h.getStarRating()), "UTF-8") %>&numberOfRooms=<%= URLEncoder.encode(String.valueOf(h.getNumberOfRooms()), "UTF-8") %>&managerID=<%= URLEncoder.encode(String.valueOf(h.getManagerID()), "UTF-8") %>">
+                                                <button type="button" class="delete-button">Delete entry</button>
+                                            </a>
+                                        </td>
                                     </tr>
                                     <% } %>
+                                    <tr>
+                                        <form action="adminPage.jsp" method="post">
+                                            <td class="table-data"><input class="table-insert-input" type="text" name="chainName" required></td>
+                                            <td class="table-data"><input class="table-insert-input" type="text" name="address" required></td>
+                                            <td class="table-data"><input class="table-insert-input" type="number" name="phoneNumber" required></td>
+                                            <td class="table-data"><input class="table-insert-input" type="email" name="emailAddress" required></td>
+                                            <td class="table-data"><input class="table-insert-input" type="number" name="starRating" required></td>
+                                            <td class="table-data"><input class="table-insert-input" type="number" name="numberOfRooms" required></td>
+                                            <td class="table-data"><input class="table-insert-input" type="number" name="managerID" required></td>
+                                            <td class="table-data">
+                                                <input type="hidden" name="type" value="Hotel">
+                                                <input type="submit" value="Insert new entry" class="edit-update-button">
+                                            </td>
+                                            <td class="table-data"></td>
+                                        </form>
+                                    </tr>
                                 </table>
                             </div>
 
@@ -319,6 +417,7 @@
                                         <th class="table-header">Extension capabilities</th>
                                         <th class="table-header">Status</th>
                                         <th class="table-header">Edit/Update</th>
+                                        <th class="table-header">Delete</th>
                                     </tr>
                                     </thead>
                                     <%
@@ -354,14 +453,38 @@
                                         <td class="table-data"><%= r.getProblemsAndDamages() == null ? "None" : r.getProblemsAndDamages() %></td>
                                         <td class="table-data" style="color:<%= r.getViewType().equalsIgnoreCase("Sea") ? "blue" : (r.getViewType().equalsIgnoreCase("Mountain") ? "green" : "black") %>;"><%= r.getViewType() %></td>
                                         <td class="table-data"><%= r.getExtensionCapabilities() %></td>
-                                        <td class="table-data" style="color:<%= r.getStatus().equalsIgnoreCase("available") ? "green" : (r.getStatus().equalsIgnoreCase("booked") ? "yellow" : "red") %>;"><%= r.getStatus() %></td>
+                                        <td class="table-data" style="color:<%= r.getStatus().equalsIgnoreCase("available") ? "green" : (r.getStatus().equalsIgnoreCase("booked") ? "#f2ba10" : "red") %>;"><%= r.getStatus() %></td>
                                         <td class="table-data">
                                             <a href="editUpdateEntry.jsp?type=HotelRoom&hotelChain=<%= URLEncoder.encode(r.getHotelChain(), "UTF-8") %>&address=<%= URLEncoder.encode(r.getAddress(), "UTF-8") %>&roomNumber=<%= URLEncoder.encode(String.valueOf(r.getRoomNumber()), "UTF-8") %>&amenities=<%= URLEncoder.encode(String.valueOf(r.getAmenities()), "UTF-8") %>&price=<%= URLEncoder.encode(String.valueOf(r.getPrice()), "UTF-8") %>&capacity=<%= URLEncoder.encode(String.valueOf(r.getCapacity()), "UTF-8") %>&problemsAndDamages=<%= URLEncoder.encode(String.valueOf(r.getProblemsAndDamages()), "UTF-8") %>&viewType=<%= URLEncoder.encode(String.valueOf(r.getViewType()), "UTF-8") %>&extensionCapabilities=<%= URLEncoder.encode(String.valueOf(r.getExtensionCapabilities()), "UTF-8") %>&status=<%= URLEncoder.encode(String.valueOf(r.getStatus()), "UTF-8") %>">
                                                 <button type="button" class="edit-update-button">Edit/update entry</button>
                                             </a>
                                         </td>
+                                        <td class="table-data">
+                                            <a href="adminPage.jsp?type=HotelRoom&hotelChain=<%= URLEncoder.encode(r.getHotelChain(), "UTF-8") %>&address=<%= URLEncoder.encode(r.getAddress(), "UTF-8") %>&roomNumber=<%= URLEncoder.encode(String.valueOf(r.getRoomNumber()), "UTF-8") %>&amenities=<%= URLEncoder.encode(String.valueOf(r.getAmenities()), "UTF-8") %>&price=<%= URLEncoder.encode(String.valueOf(r.getPrice()), "UTF-8") %>&capacity=<%= URLEncoder.encode(String.valueOf(r.getCapacity()), "UTF-8") %>&problemsAndDamages=<%= URLEncoder.encode(String.valueOf(r.getProblemsAndDamages()), "UTF-8") %>&viewType=<%= URLEncoder.encode(String.valueOf(r.getViewType()), "UTF-8") %>&extensionCapabilities=<%= URLEncoder.encode(String.valueOf(r.getExtensionCapabilities()), "UTF-8") %>&status=<%= URLEncoder.encode(String.valueOf(r.getStatus()), "UTF-8") %>">
+                                                <button type="button" class="delete-button">Delete entry</button>
+                                            </a>
+                                        </td>
                                     </tr>
                                     <% } %>
+                                    <tr>
+                                        <form action="adminPage.jsp" method="post">
+                                            <td class="table-data"><input class="table-insert-input" type="text" name="hotelChain" required></td>
+                                            <td class="table-data"><input class="table-insert-input" type="text" name="address" required></td>
+                                            <td class="table-data"><input class="table-insert-input" type="number" name="roomNumber" required></td>
+                                            <td class="table-data"><input class="table-insert-input" type="text" name="amenities" required></td>
+                                            <td class="table-data"><input class="table-insert-input" type="number" name="price" required></td>
+                                            <td class="table-data"><input class="table-insert-input" type="text" name="capacity" required></td>
+                                            <td class="table-data"><input class="table-insert-input" type="text" name="problemsAndDamages" required></td>
+                                            <td class="table-data"><input class="table-insert-input" type="text" name="viewType" required></td>
+                                            <td class="table-data"><input class="table-insert-input" type="text" name="extensionCapabilities" required></td>
+                                            <td class="table-data"><input class="table-insert-input" type="text" name="status" required></td>
+                                            <td class="table-data">
+                                                <input type="hidden" name="type" value="HotelRoom">
+                                                <input type="submit" value="Insert new entry" class="edit-update-button">
+                                            </td>
+                                            <td class="table-data"></td>
+                                        </form>
+                                    </tr>
                                 </table>
                             </div>
 
@@ -380,6 +503,7 @@
                                         <th class="table-header">SIN/SSN number</th>
                                         <th class="table-header">Job position</th>
                                         <th class="table-header">Edit/Update</th>
+                                        <th class="table-header">Delete</th>
                                     </tr>
                                     </thead>
                                     <%
@@ -396,8 +520,28 @@
                                                 <button type="button" class="edit-update-button">Edit/update entry</button>
                                             </a>
                                         </td>
+                                        <td class="table-data">
+                                            <a href="adminPage.jsp?type=Employee&firstName=<%= URLEncoder.encode(e.getFirstName(), "UTF-8") %>&middleName=<%= URLEncoder.encode(e.getMiddleName(), "UTF-8") %>&lastName=<%= URLEncoder.encode(e.getLastName(), "UTF-8") %>&address=<%= URLEncoder.encode(e.getAddress(), "UTF-8") %>&sinSsn=<%= URLEncoder.encode(String.valueOf(e.getSinSsn()), "UTF-8") %>&jobPosition=<%= URLEncoder.encode(e.getJobPosition(), "UTF-8") %>">
+                                                <button type="button" class="delete-button">Delete entry</button>
+                                            </a>
+                                        </td>
                                     </tr>
                                     <% } %>
+                                    <tr>
+                                        <form action="adminPage.jsp" method="post">
+                                            <td class="table-data"><input class="table-insert-input" type="text" name="firstName" required></td>
+                                            <td class="table-data"><input class="table-insert-input" type="text" name="middleName" required></td>
+                                            <td class="table-data"><input class="table-insert-input" type="text" name="lastName" required></td>
+                                            <td class="table-data"><input class="table-insert-input" type="text" name="address" required></td>
+                                            <td class="table-data"><input class="table-insert-input" type="number" name="sinSsn" required></td>
+                                            <td class="table-data"><input class="table-insert-input" type="text" name="jobPosition" required></td>
+                                            <td class="table-data">
+                                                <input type="hidden" name="type" value="Employee">
+                                                <input type="submit" value="Insert new entry" class="edit-update-button">
+                                            </td>
+                                            <td class="table-data"></td>
+                                        </form>
+                                    </tr>
                                 </table>
                             </div>
 
@@ -417,6 +561,7 @@
                                         <th class="table-header">Last name</th>
                                         <th class="table-header">Address</th>
                                         <th class="table-header">Edit/Update</th>
+                                        <th class="table-header">Delete</th>
                                     </tr>
                                     </thead>
                                     <%
@@ -434,8 +579,29 @@
                                                 <button type="button" class="edit-update-button">Edit/update entry</button>
                                             </a>
                                         </td>
+                                        <td class="table-data">
+                                            <a href="adminPage.jsp?type=Customer&customerID=<%= URLEncoder.encode(String.valueOf(c.getCustomerID()), "UTF-8") %>&IDType=<%= URLEncoder.encode(c.getIDType(), "UTF-8") %>&registerDate=<%= URLEncoder.encode(String.valueOf(c.getRegisterDate()), "UTF-8") %>&firstName=<%= URLEncoder.encode(c.getFirstName(), "UTF-8") %>&middleName=<%= URLEncoder.encode(c.getMiddleName(), "UTF-8") %>&lastName=<%= URLEncoder.encode(c.getLastName(), "UTF-8") %>&address=<%= URLEncoder.encode(c.getAddress(), "UTF-8") %>">
+                                                <button type="button" class="delete-button">Delete entry</button>
+                                            </a>
+                                        </td>
                                     </tr>
                                     <% } %>
+                                    <tr>
+                                        <form action="adminPage.jsp" method="post">
+                                            <td class="table-data"><input class="table-insert-input" type="number" name="customerID" required></td>
+                                            <td class="table-data"><input class="table-insert-input" type="text" name="IDType" required></td>
+                                            <td class="table-data"><input class="table-insert-input" type="date" name="registerDate" required></td>
+                                            <td class="table-data"><input class="table-insert-input" type="text" name="firstName" required></td>
+                                            <td class="table-data"><input class="table-insert-input" type="text" name="middleName" required></td>
+                                            <td class="table-data"><input class="table-insert-input" type="text" name="lastName" required></td>
+                                            <td class="table-data"><input class="table-insert-input" type="text" name="address" required></td>
+                                            <td class="table-data">
+                                                <input type="hidden" name="type" value="Customer">
+                                                <input type="submit" value="Insert new entry" class="edit-update-button">
+                                            </td>
+                                            <td class="table-data"></td>
+                                        </form>
+                                    </tr>
                                 </table>
                             </div>
                             <% } %>
