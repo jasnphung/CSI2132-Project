@@ -161,17 +161,18 @@
     <a href="databaseView1.jsp">View 1</a>
     <a href="databaseView2.jsp">View 2</a>
     <a href="employeeLogin.jsp">Employee Login</a>
-    <a href="Indexes.jsp">Indexes</a>
 </nav>
 
 <%@ page import="java.util.List" %>
 
 <%@ page import="com.DatabaseProjectWebsite.Tables.View1" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="com.DatabaseProjectWebsite.Tables.HotelRoom" %>
+<%@ page import="com.DatabaseProjectWebsite.Index" %>
 <%
     List<HotelRoom> hotelRoomIdx = null;
     try {
-        hotelRoomIdx = Index.getHotelRoomsByPrice()
+        hotelRoomIdx = Index.getHotelRoomsByPrice();
     }
 
     List<View1> viewItems = null;

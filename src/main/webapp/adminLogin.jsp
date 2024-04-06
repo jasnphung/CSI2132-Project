@@ -139,7 +139,6 @@
     <a href="databaseView1.jsp">View 1</a>
     <a href="databaseView2.jsp">View 2</a>
     <a href="employeeLogin.jsp">Employee Login</a>
-    <a href="Indexes.jsp">Indexes</a>
 </nav>
 <main>
     <div class="foreground-div">
