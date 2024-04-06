@@ -192,6 +192,7 @@
 <%@ page import="com.DatabaseProjectWebsite.Tables.HotelRoom" %>
 <%@ page import="com.DatabaseProjectWebsite.Tables.Employee" %>
 <%@ page import="com.DatabaseProjectWebsite.Tables.Customer" %>
+<%@ page import="java.util.List" %>
 
 <%
     String type = request.getParameter("type");
@@ -209,6 +210,46 @@
     int hotelRating = 0;
     int hotelNumberOfRooms = 0;
     int hotelManagerID = 0;
+
+<%
+
+    // get all hotel chains from database
+    List<HotelChain> chains = null;
+    try {
+        chains = HotelChain.getAllHotelChains();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    // get all hotels from database
+    List<Hotel> hotels = null;
+    try {
+        hotels = Hotel.getAllHotels();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    List<HotelRoom> rooms = null;
+    try {
+        rooms = HotelRoom.getAllHotelRooms();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    List<Employee> employees = null;
+    try {
+        employees = Employee.getAllEmployees();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    List<Customer> customers = null;
+    try {
+        customers = Customer.getAllCustomers();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+%>
 %>
 
 <%
@@ -332,15 +373,15 @@
                         %>
                         <form action="adminPage.jsp" method="post">
                             <label for="chainName">Chain Name:</label><br>
-                            <input class="input" type="text" id="chainName" name="chainName" value="<%= chainName %>" readonly><br>
+                            <input class="input" type="text" id="chainName" name="chainName" value="<%= chainName %>" readonly required><br>
                             <label for="centralOfficeAddress">Central Office Address:</label><br>
-                            <input class="input" type="text" id="centralOfficeAddress" name="centralOfficeAddress" value="<%= centralOfficeAddress %>"><br>
+                            <input class="input" type="text" id="centralOfficeAddress" name="centralOfficeAddress" value="<%= centralOfficeAddress %>" required><br>
                             <label for="phoneNumber">Phone Number:</label><br>
-                            <input class="input" type="number" id="phoneNumber" name="phoneNumber" value="<%= phoneNumber %>"><br>
+                            <input class="input" type="number" id="phoneNumber" name="phoneNumber" value="<%= phoneNumber %>" required><br>
                             <label for="emailAddress">Email Address:</label><br>
-                            <input class="input" type="text" id="emailAddress" name="emailAddress" value="<%= emailAddress %>"><br>
+                            <input class="input" type="text" id="emailAddress" name="emailAddress" value="<%= emailAddress %>" required><br>
                             <label for="numberOfHotels">Number of Hotels:</label><br>
-                            <input class="input" type="number" id="numberOfHotels" name="numberOfHotels" value="<%= numberOfHotels %>"><br>
+                            <input class="input" type="number" id="numberOfHotels" name="numberOfHotels" value="<%= numberOfHotels %>" required><br>
                             <input class="input-button" type="submit" value="Update">
                         </form>
 
@@ -364,19 +405,19 @@
                         %>
                         <form action="adminPage.jsp" method="post">
                             <label for="hotelChainName">Hotel Chain Name:</label><br>
-                            <input class="input" type="text" id="hotelChainName" name="hotelChainName" value="<%= hotelChainName %>"><br>
+                            <input class="input" type="text" id="hotelChainName" name="hotelChainName" value="<%= hotelChainName %> readonly" required><br>
                             <label for="hotelAddress">Hotel Address:</label><br>
-                            <input class="input" type="text" id="hotelAddress" name="hotelAddress" value="<%= hotelAddress %>"><br>
+                            <input class="input" type="text" id="hotelAddress" name="hotelAddress" value="<%= hotelAddress %> readonly" required><br>
                             <label for="hotelPhoneNumber">Hotel Phone Number:</label><br>
-                            <input class="input" type="text" id="hotelPhoneNumber" name="hotelPhoneNumber" value="<%= hotelPhoneNumber %>"><br>
+                            <input class="input" type="text" id="hotelPhoneNumber" name="hotelPhoneNumber" value="<%= hotelPhoneNumber %>" required><br>
                             <label for="hotelEmail">Hotel Email:</label><br>
-                            <input class="input" type="text" id="hotelEmail" name="hotelEmail" value="<%= hotelEmail %>"><br>
+                            <input class="input" type="text" id="hotelEmail" name="hotelEmail" value="<%= hotelEmail %>" required><br>
                             <label for="hotelRating">Hotel Rating:</label><br>
-                            <input class="input" type="number" id="hotelRating" name="hotelRating" value="<%= hotelRating %>"><br>
+                            <input class="input" type="number" id="hotelRating" name="hotelRating" value="<%= hotelRating %>" required><br>
                             <label for="hotelNumberOfRooms">Number of Rooms:</label><br>
-                            <input class="input" type="number" id="hotelNumberOfRooms" name="hotelNumberOfRooms" value="<%= hotelNumberOfRooms %>"><br>
+                            <input class="input" type="number" id="hotelNumberOfRooms" name="hotelNumberOfRooms" value="<%= hotelNumberOfRooms %>" required><br>
                             <label for="hotelManagerID">Manager ID:</label><br>
-                            <input class="input" type="number" id="hotelManagerID" name="hotelManagerID" value="<%= hotelManagerID %>"><br>
+                            <input class="input" type="number" id="hotelManagerID" name="hotelManagerID" value="<%= hotelManagerID %>" required><br>
                             <input class="input-button" type="submit" value="Update">
                         </form>
 
@@ -397,25 +438,25 @@
                         %>
                         <form action="adminPage.jsp" method="post">
                             <label for="hotelChain">Hotel Chain:</label><br>
-                            <input class="input" type="text" id="hotelChain" name="hotelChain" value="<%= hotelChain %>"><br>
+                            <input class="input" type="text" id="hotelChain" name="hotelChain" value="<%= hotelChain %>" readonly required><br>
                             <label for="address">Address:</label><br>
-                            <input class="input" type="text" id="hotelRoomAddress" name="address" value="<%= address %>"><br>
+                            <input class="input" type="text" id="hotelRoomAddress" name="address" value="<%= address %> " readonly required><br>
                             <label for="roomNumber">Room Number:</label><br>
-                            <input class="input" type="number" id="roomNumber" name="roomNumber" value="<%= roomNumber %>"><br>
+                            <input class="input" type="number" id="roomNumber" name="roomNumber" value="<%= roomNumber %>" readonly required><br>
                             <label for="amenities">Amenities:</label><br>
-                            <input class="input" type="text" id="amenities" name="amenities" value="<%= amenities %>"><br>
+                            <input class="input" type="text" id="amenities" name="amenities" value="<%= amenities %>" required><br>
                             <label for="price">Price:</label><br>
-                            <input class="input" type="number" step="0.01" id="price" name="price" value="<%= price %>"><br>
+                            <input class="input" type="number" step="0.01" id="price" name="price" value="<%= price %>" required><br>
                             <label for="capacity">Capacity:</label><br>
-                            <input class="input" type="text" id="capacity" name="capacity" value="<%= capacity %>"><br>
+                            <input class="input" type="text" id="capacity" name="capacity" value="<%= capacity %>" required><br>
                             <label for="problemsAndDamages">Problems and Damages:</label><br>
-                            <input class="input" type="text" id="problemsAndDamages" name="problemsAndDamages" value="<%= problemsAndDamages %>"><br>
+                            <input class="input" type="text" id="problemsAndDamages" name="problemsAndDamages" value="<%= problemsAndDamages %>" required><br>
                             <label for="viewType">View Type:</label><br>
-                            <input class="input" type="text" id="viewType" name="viewType" value="<%= viewType %>"><br>
+                            <input class="input" type="text" id="viewType" name="viewType" value="<%= viewType %>" required><br>
                             <label for="extensionCapabilities">Extension Capabilities:</label><br>
-                            <input class="input" type="text" id="extensionCapabilities" name="extensionCapabilities" value="<%= extensionCapabilities %>"><br>
+                            <input class="input" type="text" id="extensionCapabilities" name="extensionCapabilities" value="<%= extensionCapabilities %>" required><br>
                             <label for="status">Status:</label><br>
-                            <input class="input" type="text" id="status" name="status" value="<%= status %>"><br>
+                            <input class="input" type="text" id="status" name="status" value="<%= status %>" required><br>
                             <input class="input-button" type="submit" value="Update">
                         </form>
 
@@ -432,17 +473,17 @@
                         %>
                         <form action="adminPage.jsp" method="post">
                             <label for="firstName">First Name:</label><br>
-                            <input class="input" type="text" id="firstName" name="firstName" value="<%= firstName %>"><br>
+                            <input class="input" type="text" id="firstName" name="firstName" value="<%= firstName %>" required><br>
                             <label for="middleName">Middle Name:</label><br>
-                            <input class="input" type="text" id="middleName" name="middleName" value="<%= middleName %>"><br>
+                            <input class="input" type="text" id="middleName" name="middleName" value="<%= middleName %>" required><br>
                             <label for="lastName">Last Name:</label><br>
-                            <input class="input" type="text" id="lastName" name="lastName" value="<%= lastName %>"><br>
+                            <input class="input" type="text" id="lastName" name="lastName" value="<%= lastName %>" required><br>
                             <label for="address">Address:</label><br>
-                            <input class="input" type="text" id="address" name="address" value="<%= address %>"><br>
+                            <input class="input" type="text" id="address" name="address" value="<%= address %>" required><br>
                             <label for="sinSsn">SIN/SSN:</label><br>
-                            <input class="input" type="number" id="sinSsn" name="sinSsn" value="<%= sinSsn %>"><br>
+                            <input class="input" type="number" id="sinSsn" name="sinSsn" value="<%= sinSsn %>" readonly required><br>
                             <label for="jobPosition">Job Position:</label><br>
-                            <input class="input" type="text" id="jobPosition" name="jobPosition" value="<%= jobPosition %>"><br>
+                            <input class="input" type="text" id="jobPosition" name="jobPosition" value="<%= jobPosition %>" required><br>
                             <input class="input-button" type="submit" value="Update">
                         </form>
 
@@ -460,19 +501,19 @@
                         %>
                         <form action="adminPage.jsp" method="post">
                             <label for="customerID">Customer ID:</label><br>
-                            <input class="input" type="text" id="customerID" name="customerID" value="<%= customerID %>"><br>
+                            <input class="input" type="text" id="customerID" name="customerID" value="<%= customerID %> " readonly required><br>
                             <label for="IDType">ID Type:</label><br>
-                            <input class="input" type="text" id="IDType" name="IDType" value="<%= IDType %>"><br>
+                            <input class="input" type="text" id="IDType" name="IDType" value="<%= IDType %>" required><br>
                             <label for="registerDate">Register Date:</label><br>
-                            <input class="input" type="date" id="registerDate" name="registerDate" value="<%= registerDate %>"><br>
+                            <input class="input" type="date" id="registerDate" name="registerDate" value="<%= registerDate %>" required><br>
                             <label for="firstName">First Name:</label><br>
-                            <input class="input" type="text" id="customerFirstName" name="firstName" value="<%= firstName %>"><br>
+                            <input class="input" type="text" id="customerFirstName" name="firstName" value="<%= firstName %>" required><br>
                             <label for="middleName">Middle Name:</label><br>
-                            <input class="input" type="text" id="customerMiddleName" name="middleName" value="<%= middleName %>"><br>
+                            <input class="input" type="text" id="customerMiddleName" name="middleName" value="<%= middleName %>" required><br>
                             <label for="lastName">Last Name:</label><br>
-                            <input class="input" type="text" id="customerLastName" name="lastName" value="<%= lastName %>"><br>
+                            <input class="input" type="text" id="customerLastName" name="lastName" value="<%= lastName %>" required><br>
                             <label for="address">Address:</label><br>
-                            <input class="input" type="text" id="customerAddress" name="address" value="<%= address %>"><br>
+                            <input class="input" type="text" id="customerAddress" name="address" value="<%= address %>" required><br>
                             <input class="input-button" type="submit" value="Update">
                         </form>
                         <%
