@@ -203,17 +203,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="org.json.JSONArray" %>
-<%
-    String chainName3 = request.getParameter("chainNameTable3");
-    List<String> addresses = null;
-    try {
-        addresses = Hotel.getAddressesByChainName(chainName3);
-    } catch (Exception e) {
-        throw new RuntimeException(e);
-    }
-    JSONArray jsonAddresses = new JSONArray(addresses);
-    // out.print(jsonAddresses.toString());
-%>
+
 <%
 
     // get all hotel chains from database
@@ -293,6 +283,28 @@
 %>
 
 <%
+    if (request.getMethod().equals("POST") && request.getParameter("type") != null && request.getParameter("type").equals("HotelRoom")) {
+        String address = request.getParameter("address");
+        int roomNumber = Integer.parseInt(request.getParameter("roomNumber"));
+        String amenities = request.getParameter("amenities");
+        double price = Double.parseDouble(request.getParameter("price"));
+        String capacity = request.getParameter("capacity");
+        String problemsAndDamages = request.getParameter("problemsAndDamages");
+        String viewType = request.getParameter("viewType");
+        String extensionCapabilities = request.getParameter("extensionCapabilities");
+        String status = request.getParameter("status");
+
+        try {
+            HotelRoom.insertHotelRoom(address, roomNumber, amenities, price, capacity, problemsAndDamages, viewType, extensionCapabilities, status);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        response.sendRedirect("adminPage.jsp");
+    }
+%>
+
+<%
     if (request.getMethod().equals("POST") && request.getParameter("type") != null && request.getParameter("type").equals("Employee")) {
         String firstName = request.getParameter("firstName");
         String middleName = request.getParameter("middleName");
@@ -336,6 +348,27 @@
         try {
             System.out.println(address);
             Hotel.deleteHotel(address);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        response.sendRedirect("adminPage.jsp");
+    }
+%>
+
+<%
+    action = request.getParameter("action");
+    type = request.getParameter("type");
+    address = request.getParameter("address");
+    String roomNumberStr = request.getParameter("roomNumber");
+    int roomNumber = 0;
+    if (roomNumberStr != null && !roomNumberStr.isEmpty()) {
+        roomNumber = Integer.parseInt(roomNumberStr);
+    }
+
+    if ("delete".equals(action) && "HotelRoom".equals(type) && address != null && roomNumber != 0) {
+        try {
+            HotelRoom.deleteHotelRoom(address, roomNumber);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -579,24 +612,44 @@
                                                 </select>
                                             </td>
                                             <td class="table-data">
-                                                <select class="table-insert-input" name="address" id="address" required></select>
+                                                <select class="table-insert-input" name="address" id="address" required>
+                                                    <% for (Hotel h : hotels) { %>
+                                                    <option value="<%= h.getAddress() %>"><%= h.getAddress() %></option>
+                                                    <% } %>
+                                                </select>
                                             </td>
                                             <td class="table-data"><input class="table-insert-input" type="number" name="roomNumber" required></td>
                                             <td class="table-data"><input class="table-insert-input" type="text" name="amenities" required></td>
                                             <td class="table-data"><input class="table-insert-input" type="number" name="price" required></td>
                                             <td class="table-data">
                                                 <select class="table-insert-input" name="capacity" required>
-                                                    <option value="1">Single (1)</option>
-                                                    <option value="2">Double (2)</option>
-                                                    <option value="3">Triple (3)</option>
-                                                    <option value="4">Quadruple (4)</option>
-                                                    <option value="5">Suite (5+)</option>
+                                                    <option value="Single">Single (1)</option>
+                                                    <option value="Double">Double (2)</option>
+                                                    <option value="Triple">Triple (3)</option>
+                                                    <option value="Quadruple">Quadruple (4)</option>
+                                                    <option value="Suite">Suite (5+)</option>
                                                 </select>
                                             </td>
                                             <td class="table-data"><input class="table-insert-input" type="text" name="problemsAndDamages" required></td>
-                                            <td class="table-data"><input class="table-insert-input" type="text" name="viewType" required></td>
-                                            <td class="table-data"><input class="table-insert-input" type="text" name="extensionCapabilities" required></td>
-                                            <td class="table-data"><input class="table-insert-input" type="text" name="status" required></td>
+                                            <td class="table-data">
+                                                <select class="table-insert-input" name="viewType" required>
+                                                    <option style="color: green;" value="Mountain">Mountain</option>
+                                                    <option style="color: blue;" value="Sea">Sea</option>
+                                                </select>
+                                            </td>
+                                            <td class="table-data">
+                                                <select class="table-insert-input" name="extensionCapabilities" required>
+                                                    <option value="Possible">Possible</option>
+                                                    <option value="Not possible">Not possible</option>
+                                                </select>
+                                            </td>
+                                            <td class="table-data">
+                                                <select class="table-insert-input" name="status" required>
+                                                    <option style="color: green;" value="available">available</option>
+                                                    <option style="color: #f2ba10;" value="booked">booked</option>
+                                                    <option style="color: red;" value="rented">rented</option>
+                                                </select>
+                                            </td>
                                             <td class="table-data">
                                                 <input type="hidden" name="type" value="HotelRoom">
                                                 <input type="submit" value="Insert new entry" class="edit-update-button">
@@ -740,32 +793,6 @@
         </div>
 
 </main>
-
-<script>
-    function updateAddressDropdown() {
-        var chainName = document.getElementById('chainName').value;
-
-        // Send an AJAX request to the server to get the addresses for the selected hotel chain
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'getAddresses.jsp?chainName=' + encodeURIComponent(chainName), true);
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                var addresses = JSON.parse(xhr.responseText);
-
-                // Update the address dropdown with the received addresses
-                var addressDropdown = document.getElementById('address');
-                addressDropdown.innerHTML = '';
-                for (var i = 0; i < addresses.length; i++) {
-                    var option = document.createElement('option');
-                    option.value = addresses[i];
-                    option.text = addresses[i];
-                    addressDropdown.appendChild(option);
-                }
-            }
-        };
-        xhr.send();
-    }
-</script>
 
 <footer style=background-color:#0b1021;>
     <a href="adminLogin.jsp" style="color: white;">Admin? Login here</a>

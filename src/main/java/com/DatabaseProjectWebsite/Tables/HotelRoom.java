@@ -202,4 +202,53 @@ public class HotelRoom {
         }
         return message;
     }
+
+    public static void insertHotelRoom(String address, int roomNumber, String amenities, double price, String  capacity, String problemsAndDamages, String viewType, String extensionCapabilities, String status) throws Exception {
+        String sql = "INSERT INTO dbproj.hotelRoom (address, room_number, amenities, price, capacity, problems_and_damages, view_type, extension_capabilities, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        DatabaseConnection db = new DatabaseConnection();
+
+        try (Connection con = db.getConnection()) {
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setString(1, address);
+            stmt.setInt(2, roomNumber);
+            stmt.setString(3, amenities);
+            stmt.setDouble(4, price);
+            stmt.setString(5, capacity);
+            stmt.setString(6, problemsAndDamages);
+            stmt.setString(7, viewType);
+            stmt.setString(8, extensionCapabilities);
+            stmt.setString(9, status);
+
+            stmt.executeUpdate();
+
+            stmt.close();
+            con.close();
+            db.close();
+        } catch (Exception e) {
+            throw new Exception("Could not insert hotel room: " + e.getMessage());
+        }
+    }
+
+    public static void deleteHotelRoom(String address, int roomNumber) throws Exception {
+        String sql = "DELETE FROM dbproj.hotelRoom WHERE address = ? AND room_number = ?";
+
+        DatabaseConnection db = new DatabaseConnection();
+
+        try (Connection con = db.getConnection()) {
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setString(1, address);
+            stmt.setInt(2, roomNumber);
+
+            stmt.executeUpdate();
+
+            stmt.close();
+            con.close();
+            db.close();
+        } catch (Exception e) {
+            throw new Exception("Could not delete hotel room: " + e.getMessage());
+        }
+    }
 }

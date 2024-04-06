@@ -241,36 +241,4 @@ public class Hotel {
             e.printStackTrace();
         }
     }
-
-    public static List<String> getAddressesByChainName(String chainName) throws Exception {
-        List<String> addresses = new ArrayList<>();
-
-        // SQL query
-        String sql = "SELECT address FROM dbproj.hotel WHERE chain_name = ?";
-
-        // Connection object
-        DatabaseConnection db = new DatabaseConnection();
-
-        try (Connection con = db.getConnection()) {
-            // Prepare statement
-            PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setString(1, chainName);
-            ResultSet rs = stmt.executeQuery();
-
-            // Iterate over the result set and add each address to the list
-            while (rs.next()) {
-                addresses.add(rs.getString("address"));
-            }
-
-            // Close statements and result set
-            rs.close();
-            stmt.close();
-            con.close();
-            db.close();
-        } catch (Exception e) {
-            throw new Exception("Could not retrieve addresses: " + e.getMessage());
-        }
-
-        return addresses;
-    }
 }
