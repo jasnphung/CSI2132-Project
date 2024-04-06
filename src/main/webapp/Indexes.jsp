@@ -84,7 +84,13 @@
             border-radius: 20px;
         }
         .foreground-div {
+            background-color: rgba(0, 0, 0, 0.55);
+            /* padding: 10px; */
+            border-radius: 20px;
+            height: 100%;
+            width: 100%;
             text-align: center;
+            /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -124,6 +130,22 @@
             flex-direction: column;
             align-items: center;
         }
+        .table-header {
+            font-size: 22px;
+            padding: 10px;
+            text-align: center;
+            border: 1px solid black; /* Adjust as needed */
+        }
+        .table-data {
+            font-family: Gilroy-Light, sans-serif;
+            font-size: 18px; /* 16px -> default font size */
+            padding: 10px;
+            text-align: center;
+            border: 1px solid black;
+        }
+        .table {
+            border-collapse: collapse; /* Collapse the borders */
+        }
     </style>
 </head>
 
@@ -141,33 +163,67 @@
     <a href="employeeLogin.jsp">Employee Login</a>
     <a href="Indexes.jsp">Indexes</a>
 </nav>
-<main>
-    <div class="foreground-div">
-        <h2>Admin Login</h2>
-        <form action="adminPage.jsp" method="post">
-            <label for="username" class="label-size">Username:</label>
-            <input type="text" name="username" id="username" class="input-spacing" required>
-            <br>
-            <label for="password" class="label-size">Password:</label>
-            <input type="password" name="password" id="password" class="input-spacing" required>
-            <br>
-            <input type="submit" value="Login" class="search-button">
-        </form>
-    </div>
+
+<%@ page import="java.util.List" %>
+
+<%@ page import="com.DatabaseProjectWebsite.Tables.View1" %>
+<%@ page import="java.util.ArrayList" %>
+<%
+    List<HotelRoom> hotelRoomIdx = null;
+    try {
+        hotelRoomIdx = Index.getHotelRoomsByPrice()
+    }
+
+    List<View1> viewItems = null;
+    try {
+        viewItems = View1.getData();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+%>
+
+<main style="padding-bottom: 50px">
+     <div class="container">
+            <div class="row" id="row">
+                <div class="col-md-12">
+                    <div class="card" id="card-container">
+                        <div class="card-body" id="card">
+                            <% if (viewItems == null || viewItems.size() == 0) { %>
+                            <h1 style="margin-top: 5rem;">No Data found.</h1>
+                            <% } else { %>
+
+                            <h2>Available Rooms Per City</h2>
+
+                            <!-- First table -->
+                            <div>
+                                <table class="table center-table">
+                                    <thead>
+                                    <tr>
+                                        <th class="table-header">Address</th>
+                                        <th class="table-header">Total Capacity</th>
+                                    </tr>
+                                    </thead>
+                                    <%
+                                        for (View1 v : viewItems) { %>
+                                    <tr>
+                                        <td class="table-data"><%= v.getAddress() %></td>
+                                        <td class="table-data"><%= v.getAvailability() %></td>
+                                    </tr>
+                                    <% } %>
+                                </table>
+                            </div>
+                        <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 </main>
+
 <footer style=background-color:#0b1021;>
     <a href="adminLogin.jsp" style="color: white;">Admin? Login here</a>
 </footer>
-<script>
-    document.querySelector('form').addEventListener('submit', function(event) {
-        let username = document.querySelector('#username').value;
-        let password = document.querySelector('#password').value;
-        if (username === 'admin' && password === 'admin') {
-            return;
-        }
-        event.preventDefault();
-        alert('Invalid username or password');
-    }
-</script>
 </body>
+
 </html>

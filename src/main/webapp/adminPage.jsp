@@ -192,6 +192,7 @@
     <a href="databaseView1.jsp">View 1</a>
     <a href="databaseView2.jsp">View 2</a>
     <a href="employeeLogin.jsp">Employee Login</a>
+    <a href="Indexes.jsp">Indexes</a>
 </nav>
 
 <%@ page import="java.util.List" %>
@@ -596,7 +597,7 @@
                                             </a>
                                         </td>
                                         <td class="table-data">
-                                            <a href="adminPage.jsp?action=delete&type=HotelRoom&address=<%= URLEncoder.encode(r.getAddress(), "UTF-8") %>">
+                                            <a href="adminPage.jsp?action=delete&type=HotelRoom&address=<%= URLEncoder.encode(r.getAddress(), "UTF-8")%>&roomNumber=<%= URLEncoder.encode(String.valueOf(r.getRoomNumber()), "UTF-8") %>">
                                                 <button type="button" class="delete-button">Delete entry</button>
                                             </a>
                                         </td>

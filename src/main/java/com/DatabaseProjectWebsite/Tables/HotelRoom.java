@@ -232,6 +232,7 @@ public class HotelRoom {
     }
 
     public static void deleteHotelRoom(String address, int roomNumber) throws Exception {
+        System.out.println(address + " , " + roomNumber);
         String sql = "DELETE FROM dbproj.hotelRoom WHERE address = ? AND room_number = ?";
 
         DatabaseConnection db = new DatabaseConnection();

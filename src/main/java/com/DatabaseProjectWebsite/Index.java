@@ -1,9 +1,11 @@
 package com.DatabaseProjectWebsite;
 
 import com.DatabaseProjectWebsite.DatabaseConnection;
+import com.DatabaseProjectWebsite.Tables.HotelRoom;
 
 import java.sql.*;
 import java.util.*;
+import java.util.Date;
 
 public class Index {
     private String city;
@@ -58,6 +60,8 @@ public class Index {
                 + "</ul>";
     }
 
+
+
     public static List<String> getCities() throws Exception {
         String sql = "SELECT DISTINCT SUBSTRING(address FROM POSITION(',' IN address) + 1) AS city FROM dbproj.hotelroom";
         DatabaseConnection db = new DatabaseConnection();
@@ -105,4 +109,6 @@ public class Index {
             throw new Exception("Could not retrieve hotel chains: " + e.getMessage());
         }
     }
+
+
 }
