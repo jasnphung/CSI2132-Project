@@ -86,7 +86,7 @@ public class Customer {
         }
     }
 
-    public String updateCustomer(Customer customer) throws Exception {
+    public static String updateCustomer(String customerID, String idType, String registerDate, String firstName, String middleName, String lastName, String address) throws Exception {
         Connection con = null;
         String message = "";
 
@@ -97,12 +97,12 @@ public class Customer {
             con = db.getConnection();
             PreparedStatement stmt = con.prepareStatement(sql);
 
-            stmt.setString(1, customer.getIDType());
-            stmt.setString(2, customer.getRegisterDate());
-            stmt.setString(3, customer.getFirstName());
-            stmt.setString(4, customer.getMiddleName());
-            stmt.setString(5, customer.getLastName());
-            stmt.setString(6, customer.getAddress());
+            stmt.setString(1, idType);
+            stmt.setString(2, registerDate);
+            stmt.setString(3, firstName);
+            stmt.setString(4, middleName);
+            stmt.setString(5, lastName);
+            stmt.setString(6, address);
 
             stmt.executeUpdate();
 

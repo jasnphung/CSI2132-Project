@@ -153,7 +153,7 @@ public class Employee {
         }
     }
 
-    public String updateEmployee(Employee employee) throws Exception {
+    public static String updateEmployee(String firstName, String middleName, String lastName, String address, int sinSsn, String jobPosition) throws Exception {
         Connection con = null;
         String message = "";
 
@@ -164,12 +164,12 @@ public class Employee {
             con = db.getConnection();
             PreparedStatement stmt = con.prepareStatement(sql);
 
-            stmt.setString(1, employee.getFirstName());
-            stmt.setString(2, employee.getMiddleName());
-            stmt.setString(3, employee.getLastName());
-            stmt.setString(4, employee.getAddress());
-            stmt.setLong(5, employee.getSinSsn());
-            stmt.setString(6, employee.getJobPosition());
+            stmt.setString(1, firstName);
+            stmt.setString(2, middleName);
+            stmt.setString(3, lastName);
+            stmt.setString(4, address);
+            stmt.setLong(5, sinSsn);
+            stmt.setString(6, jobPosition);
 
             stmt.executeUpdate();
 

@@ -101,7 +101,7 @@ public class HotelRoom {
         }
     }
 
-    public String updateHotelroom(HotelRoom hotelRoom) throws Exception {
+    public static String updateHotelRoom(String hotelChain, String address, int roomNumber, String amenities, float price, String capacity, String problemsAndDamages, String viewType, String extensionCapabilities, String status) throws Exception {
         Connection con = null;
         String message = "";
 
@@ -113,15 +113,15 @@ public class HotelRoom {
             con = db.getConnection();
             PreparedStatement stmt = con.prepareStatement(sql);
 
-            stmt.setString(1, hotelRoom.getAddress());
-            stmt.setInt(2, hotelRoom.getRoomNumber());
-            stmt.setString(3, hotelRoom.getAmenities());
-            stmt.setFloat(4, hotelRoom.getPrice());
-            stmt.setString(5, hotelRoom.getCapacity());
-            stmt.setString(6, hotelRoom.getProblemsAndDamages());
-            stmt.setString(7, hotelRoom.getViewType());
-            stmt.setString(8, hotelRoom.getExtensionCapabilities());
-            stmt.setString(9, hotelRoom.getStatus());
+            stmt.setString(1, address);
+            stmt.setInt(2, roomNumber);
+            stmt.setString(3, amenities);
+            stmt.setFloat(4, price);
+            stmt.setString(5, capacity);
+            stmt.setString(6, problemsAndDamages);
+            stmt.setString(7, viewType);
+            stmt.setString(8, extensionCapabilities);
+            stmt.setString(9, status);
 
             stmt.executeUpdate();
 

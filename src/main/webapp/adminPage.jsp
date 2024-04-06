@@ -369,6 +369,7 @@
 
     if ("delete".equals(action) && "HotelRoom".equals(type) && address != null && roomNumber != 0) {
         try {
+            System.out.println(address + "" + roomNumber);
             HotelRoom.deleteHotelRoom(address, roomNumber);
         } catch (Exception e) {
             e.printStackTrace();

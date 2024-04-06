@@ -93,7 +93,7 @@ public class HotelChain {
     }
 
 
-    public String updateChain(HotelChain chain) throws Exception {
+    public static String updateChain(String chainName, String centralOfficeAddress, long phoneNumber, String emailAddress, int numberOfHotels) throws Exception {
         Connection con = null;
         String message = "";
 
@@ -111,11 +111,11 @@ public class HotelChain {
             PreparedStatement stmt = con.prepareStatement(sql);
 
             // set every ? of statement
-            stmt.setString(1, chain.getCentralOfficeAddress());
-            stmt.setLong(2, chain.getPhoneNumber());
-            stmt.setString(3, chain.getEmailAddress());
-            stmt.setInt(4, chain.getNumberOfHotels());
-            stmt.setString(5, chain.getChainName());
+            stmt.setString(1, centralOfficeAddress);
+            stmt.setLong(2, phoneNumber);
+            stmt.setString(3, emailAddress);
+            stmt.setInt(4, numberOfHotels);
+            stmt.setString(5, chainName);
 
             // execute the query
             stmt.executeUpdate();

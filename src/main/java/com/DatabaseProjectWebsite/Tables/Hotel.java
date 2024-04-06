@@ -84,7 +84,7 @@ public class Hotel {
         }
     }
 
-    public String updateHotel(Hotel hotel) throws Exception {
+    public static String updateHotel(String chainName, String address, Long phoneNumber, String emailAddress, int starRating, int numberOfRooms, int managerID) throws Exception {
         Connection con = null;
         String message = "";
 
@@ -96,13 +96,13 @@ public class Hotel {
             con = db.getConnection();
             PreparedStatement stmt = con.prepareStatement(sql);
 
-            stmt.setString(1, hotel.getAddress());
-            stmt.setLong(2, hotel.getPhoneNumber());
-            stmt.setString(3, hotel.getEmailAddress());
-            stmt.setInt(4, hotel.getStarRating());
-            stmt.setInt(5, hotel.getNumberOfRooms());
-            stmt.setString(6, hotel.getChainName());
-            stmt.setInt(7, hotel.getManagerID());
+            stmt.setString(1, address);
+            stmt.setLong(2, phoneNumber);
+            stmt.setString(3, emailAddress);
+            stmt.setInt(4, starRating);
+            stmt.setInt(5, numberOfRooms);
+            stmt.setString(6, chainName);
+            stmt.setInt(7, managerID);
 
             stmt.executeUpdate();
 
